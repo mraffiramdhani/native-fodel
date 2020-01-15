@@ -14,6 +14,7 @@ import Category from '../components/Category';
 import SliderTitle from '../components/SliderTitle';
 import CardList from '../components/CardList';
 import RestaurantList from '../components/RestaurantList';
+import FooterTab from '../components/FooterTab';
 
 // create a component
 class Home extends Component {
@@ -46,7 +47,7 @@ class Home extends Component {
                         <RestaurantList data={this.props.restaurant.data} />
                     </View>
                 </ScrollView>
-
+                <FooterTab />
             </Container>
         );
     }

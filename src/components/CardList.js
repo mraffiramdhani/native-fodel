@@ -33,7 +33,7 @@ class CardList extends Component {
                         if (i === 0) {
                             styler.push({ marginLeft: 20 })
                         }
-                        if (i === this.props.data.length) {
+                        if (i === this.props.data.length - 1) {
                             styler.push({ marginRight: 20 })
                         }
                         return (

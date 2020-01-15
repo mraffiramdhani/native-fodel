@@ -23,7 +23,7 @@ class RestaurantList extends Component {
                         if (i === 0) {
                             styled.push({ marginLeft: 20 })
                         }
-                        if (i === this.props.data.length) {
+                        if (i === this.props.data.length - 1) {
                             styled.push({ merginRight: 20 })
                         }
                         return (

@@ -1,7 +1,7 @@
 //import liraries
 import React, { Component } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
-import { Icon, Input, Item } from 'native-base';
+import { Icon, Item } from 'native-base';
 
 // create a component
 class SearchBar extends Component {
@@ -11,7 +11,7 @@ class SearchBar extends Component {
                 <View style={styles.searchbarWrapper}>
                     <Item style={styles.searchbar}>
                         <Icon name="ios-search" style={styles.searchIcon} />
-                        <Input style={styles.searchInput} placeholder="Feelin' hungry today?"></Input>
+                        <Text style={styles.searchInput}>Feelin' hungry today?</Text>
                     </Item>
                 </View>
             </View>
@@ -26,9 +26,9 @@ const styles = StyleSheet.create({
         paddingBottom: 10,
     },
     searchbarWrapper: { paddingLeft: 20, paddingRight: 20, },
-    searchbar: { backgroundColor: '#eee', borderRadius: 12, paddingLeft: 15, borderBottomColor: 'transparent' },
-    searchIcon: { fontSize: 20, color: '#444' },
-    searchInput: { fontFamily: 'Nunito-Regular' }
+    searchbar: { backgroundColor: '#eee', borderRadius: 12, paddingLeft: 15, borderBottomColor: 'transparent', height: 50 },
+    searchIcon: { fontSize: 25, color: '#444' },
+    searchInput: { fontFamily: 'Nunito-Regular', fontSize: 18, color: '#333' }
 });
 
 //make this component available to the app

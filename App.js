@@ -6,7 +6,6 @@ import storage from './src/redux/store';
 import { createAppContainer } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
 import { View, StyleSheet } from 'react-native';
-import FooterTab from './src/components/FooterTab';
 
 import Home from './src/screens/Home';
 
@@ -17,8 +16,9 @@ const StackNav = createStackNavigator({
     screen: Home,
     navigationOptions: {
       headerShown: false,
-    }
+    },
   },
+  initialRouteName: Home,
 })
 
 const AppContainer = createAppContainer(StackNav)
@@ -31,7 +31,6 @@ class App extends Component {
         <PersistGate persistor={persistor}>
           <View style={styles.root}>
             <AppContainer />
-            <FooterTab />
           </View>
         </PersistGate>
       </Provider>

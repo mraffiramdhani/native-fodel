@@ -18,6 +18,9 @@ class FooterTab extends Component {
                         <MCIcon name="apps-box" size={25} />
                         <Text>Category</Text>
                     </Button>
+                    <Button vertical rounded style={{ backgroundColor: '#111' }}>
+                        <Icon name="ios-search" style={{ color: '#fff' }} size={55} />
+                    </Button>
                     <Button vertical>
                         <MCIcon name="cart" size={25} />
                         <Text>Cart</Text>
