@@ -4,6 +4,12 @@ import { View, Text, StyleSheet, ScrollView, Image } from 'react-native';
 
 // create a component
 class RestaurantList extends Component {
+    constructor(props) {
+        super(props)
+        this.state = {
+
+        }
+    }
     render() {
         return (
             <View style={styles.container}>
@@ -11,14 +17,26 @@ class RestaurantList extends Component {
                     horizontal
                     showsHorizontalScrollIndicator={false}
                 >
-                    <View style={styles.card}>
-                        <View style={styles.cardWrapper}>
-                            <Image style={{ width: 50, height: 50, borderRadius: 50, }} source={require('../assets/icons/raid.jpg')} />
-                            <Text style={styles.title}>Raid</Text>
-                        </View>
-                    </View>
+                    {this.props.data && this.props.data.map((v, i) => {
+                        var img = `asset:/icons/${v.icon}`
+                        var styled = [styles.card]
+                        if (i === 0) {
+                            styled.push({ marginLeft: 20 })
+                        }
+                        if (i === this.props.data.length) {
+                            styled.push({ merginRight: 20 })
+                        }
+                        return (
+                            < View style={styled} key={i}>
+                                <View style={styles.cardWrapper}>
+                                    <Image style={{ width: 50, height: 50, borderRadius: 50, }} source={{ uri: img }} />
+                                    <Text style={styles.title}>{v.name}</Text>
+                                </View>
+                            </View>
+                        )
+                    })}
                 </ScrollView>
-            </View>
+            </View >
         );
     }
 }
@@ -30,7 +48,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'flex-start',
     },
-    card: { backgroundColor: '#fff', width: 100, height: 120, borderRadius: 12, marginLeft: 20, elevation: 5 },
+    card: { backgroundColor: '#fff', width: 100, height: 120, borderRadius: 12, margin: 10, elevation: 5 },
     cardWrapper: { flex: 1, flexDirection: 'column', justifyContent: 'center', alignItems: 'center' },
     title: { marginTop: 10, textAlign: 'center', fontFamily: 'Nunito-Regular' },
 });

@@ -11,7 +11,7 @@ class SearchBar extends Component {
                 <View style={styles.searchbarWrapper}>
                     <Item style={styles.searchbar}>
                         <Icon name="ios-search" style={styles.searchIcon} />
-                        <Input style={styles.searchInput} placeholder="Telusuri Aplikasi & Game"></Input>
+                        <Input style={styles.searchInput} placeholder="Feelin' hungry today?"></Input>
                     </Item>
                 </View>
             </View>

@@ -6,6 +6,12 @@ import IonIcon from 'react-native-vector-icons/Ionicons';
 
 // create a component
 class CardList extends Component {
+    constructor(props) {
+        super(props)
+        this.state = {
+
+        }
+    }
     render() {
         return (
             <View style={styles.container}>
@@ -13,19 +19,31 @@ class CardList extends Component {
                     horizontal
                     showsHorizontalScrollIndicator={false}
                 >
-                    <View style={styles.menuWrapper}>
-                        <View>
-                            <Image source={require('../assets/images/raid.jpg')} style={styles.image} resizeMode="cover" />
-                        </View>
-                        <View style={styles.menuInfo}>
-                            <Text style={styles.title}>Raid Shadow Legends</Text>
-                            <Text style={styles.restaurant}>Restaurant Name</Text>
-                            <View style={styles.info}>
-                                <Text style={styles.startCount}><IonIcon name="ios-star" style={styles.star} size={15} /> 5</Text>
-                                <Text style={styles.price}>Rp.5.000</Text>
+                    {this.props.data && this.props.data.map((v, i) => {
+                        var img = `asset:/images/${v.image}`
+                        var styler = [styles.menuWrapper]
+                        if (i === 0) {
+                            styler.push({ marginLeft: 20 })
+                        }
+                        if (i === this.props.data.length) {
+                            styler.push({ marginRight: 20 })
+                        }
+                        return (
+                            <View style={styler} key={i}>
+                                <View>
+                                    <Image source={{ uri: img }} style={styles.image} resizeMode="cover" />
+                                </View>
+                                <View style={styles.menuInfo}>
+                                    <Text style={styles.title}>{v.name}</Text>
+                                    <Text style={styles.restaurant}>{v.restaurant}</Text>
+                                    <View style={styles.info}>
+                                        <Text style={styles.startCount}><IonIcon name="ios-star" style={styles.star} size={15} /> {v.rating}</Text>
+                                        <Text style={styles.price}>{v.price}</Text>
+                                    </View>
+                                </View>
                             </View>
-                        </View>
-                    </View>
+                        )
+                    })}
                 </ScrollView>
             </View >
         );
@@ -38,7 +56,7 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
     },
-    menuWrapper: { flex: 1, flexDirection: 'column', marginLeft: 20, },
+    menuWrapper: { flex: 1, flexDirection: 'column', margin: 10, },
     image: { width: 200, height: 120, borderRadius: 15 },
     menuInfo: { flex: 1, flexDirection: 'column', margin: 10, },
     restaurant: { fontFamily: 'Nunito-Regular', color: '#444', fontSize: 12 },

@@ -3,8 +3,10 @@ import React, { Component } from 'react';
 import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
 import storage from './src/redux/store';
-import { createAppContainer } from 'react-navigation'
-import { createStackNavigator } from 'react-navigation-stack'
+import { createAppContainer } from 'react-navigation';
+import { createStackNavigator } from 'react-navigation-stack';
+import { View, StyleSheet } from 'react-native';
+import FooterTab from './src/components/FooterTab';
 
 import Home from './src/screens/Home';
 
@@ -27,12 +29,22 @@ class App extends Component {
     return (
       <Provider store={store}>
         <PersistGate persistor={persistor}>
-          <AppContainer />
+          <View style={styles.root}>
+            <AppContainer />
+            <FooterTab />
+          </View>
         </PersistGate>
       </Provider>
     );
   }
 }
+
+const styles = StyleSheet.create({
+  root: {
+    flex: 1,
+    backgroundColor: '#fff',
+  }
+})
 
 //make this component available to the app
 export default App;

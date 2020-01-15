@@ -29,7 +29,11 @@ const styles = StyleSheet.create({
         flex: 1,
         flexDirection: 'row',
         justifyContent: 'space-between',
-        padding: 20,
+        paddingTop: 10,
+        paddingBottom: 10,
+        paddingRight: 20,
+        paddingLeft: 20,
+
     },
     title: { fontFamily: 'Nunito-Regular', fontSize: 20, },
     viewAll: { fontFamily: 'Nunito-Regular', fontSize: 16, color: '#2b83ff', },
