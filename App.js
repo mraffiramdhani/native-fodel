@@ -1,11 +1,25 @@
 //import liraries
 import React, { Component } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
 import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
 import storage from './src/redux/store';
+import { createAppContainer } from 'react-navigation'
+import { createStackNavigator } from 'react-navigation-stack'
+
+import Home from './src/screens/Home';
 
 const { store, persistor } = storage();
+
+const StackNav = createStackNavigator({
+  Home: {
+    screen: Home,
+    navigationOptions: {
+      headerShown: false,
+    }
+  },
+})
+
+const AppContainer = createAppContainer(StackNav)
 
 // create a component
 class App extends Component {
@@ -13,9 +27,7 @@ class App extends Component {
     return (
       <Provider store={store}>
         <PersistGate persistor={persistor}>
-          <View>
-            <Text>App</Text>
-          </View>
+          <AppContainer />
         </PersistGate>
       </Provider>
     );
