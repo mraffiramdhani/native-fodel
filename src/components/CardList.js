@@ -12,6 +12,14 @@ class CardList extends Component {
 
         }
     }
+
+    rupiah(angka) {
+        var rupiah = '';
+        var angkarev = angka.toString().split('').reverse().join('');
+        for (var i = 0; i < angkarev.length; i++) if (i % 3 === 0) rupiah += angkarev.substr(i, 3) + '.';
+        return 'Rp.' + rupiah.split('', rupiah.length - 1).reverse().join('');
+    }
+
     render() {
         return (
             <View style={styles.container}>
@@ -38,7 +46,7 @@ class CardList extends Component {
                                     <Text style={styles.restaurant}>{v.restaurant}</Text>
                                     <View style={styles.info}>
                                         <Text style={styles.startCount}><IonIcon name="ios-star" style={styles.star} size={15} /> {v.rating}</Text>
-                                        <Text style={styles.price}>{v.price}</Text>
+                                        <Text style={styles.price}>{this.rupiah(v.price)}</Text>
                                     </View>
                                 </View>
                             </View>

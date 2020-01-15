@@ -10,16 +10,16 @@ class FooterTab extends Component {
         return (
             <Footer>
                 <FootTab style={styles.footerTab}>
-                    <Button vertical active>
-                        <MCIcon name="hamburger" size={25} />
-                        <Text>Menu</Text>
+                    <Button vertical style={styles.active}>
+                        <MCIcon name="hamburger" size={25} style={styles.textActive} />
+                        <Text style={styles.textActive}>Menu</Text>
                     </Button>
                     <Button vertical>
                         <MCIcon name="apps-box" size={25} />
                         <Text>Category</Text>
                     </Button>
                     <Button vertical>
-                        <MCIcon active name="cart" size={25} />
+                        <MCIcon name="cart" size={25} />
                         <Text>Cart</Text>
                     </Button>
                     <Button vertical>
@@ -41,6 +41,8 @@ const styles = StyleSheet.create({
         backgroundColor: '#2c3e50',
     },
     footerTab: { backgroundColor: '#fff' },
+    active: { backgroundColor: '#111' },
+    textActive: { color: '#fff' }
 });
 
 //make this component available to the app
