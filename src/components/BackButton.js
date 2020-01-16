@@ -1,15 +1,17 @@
 //import liraries
 import React, { Component } from 'react';
-import { StyleSheet, View, Text } from 'react-native';
+import { StyleSheet, View, TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 
 // create a component
 class BackButton extends Component {
     render() {
         return (
-            <View style={styles.container}>
-                <Icon name="ios-arrow-back" style={styles.icon} />
-            </View>
+            <TouchableOpacity onPress={() => this.props.navigation.goBack()}>
+                <View style={styles.container}>
+                    <Icon name="ios-arrow-back" style={styles.icon} />
+                </View>
+            </TouchableOpacity>
         );
     }
 }

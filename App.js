@@ -11,6 +11,7 @@ import Home from './src/screens/Home';
 import Search from './src/screens/Search';
 import Login from './src/screens/Login';
 import Register from './src/screens/Register';
+import ItemDetail from './src/screens/ItemDetail';
 
 const { store, persistor } = storage();
 
@@ -39,8 +40,14 @@ const StackNav = createStackNavigator({
       headerShown: false,
     },
   },
+  ItemDetail: {
+    screen: ItemDetail,
+    navigationOptions: {
+      headerShown: false,
+    },
+  },
 }, {
-  initialRouteName: 'Home',
+  initialRouteName: 'ItemDetail',
 })
 
 const AppContainer = createAppContainer(StackNav)

@@ -1,6 +1,6 @@
 //import liraries
 import React, { Component } from 'react';
-import { View, StyleSheet, TouchableOpacity, ScrollView, Text, Image } from 'react-native';
+import { View, StyleSheet, ScrollView, Text, Image } from 'react-native';
 import { Input, Container } from 'native-base';
 import { withNavigation } from 'react-navigation';
 import { connect } from 'react-redux';
@@ -27,9 +27,7 @@ class SearchOriginal extends Component {
         return (
             <Container style={styles.container}>
                 <View style={styles.headerWrapper}>
-                    <TouchableOpacity onPress={() => this.props.navigation.goBack()}>
-                        <BackButton />
-                    </TouchableOpacity>
+                    <BackButton />
                     <View style={styles.searchWrapper}>
                         <IonIcon name="ios-search" style={styles.searchIcon} />
                         <Input style={styles.searchInput} placeholder="Feelin' hungry today?" autoFocus />

@@ -10,3 +10,9 @@ export const getItems = () => {
         type: 'GET_ITEMS',
     }
 }
+
+export const getItem = () => {
+    return {
+        type: 'GET_ITEM',
+    }
+}

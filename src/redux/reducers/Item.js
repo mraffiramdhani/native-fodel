@@ -35,6 +35,18 @@ const item = (state = initialState, action) => {
                     { name: "Sup Labu", image: "soup.jpg", restaurant: "Bu Otang", rating: 4.7, price: 10000 },
                 ],
             }
+        case 'GET_ITEM':
+            return {
+                ...state,
+                data: {
+                    name: "Kopi Teman Sejiwa",
+                    image: "drink.jpg",
+                    restaurant: "Teman Sejiwa",
+                    description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
+                    rating: 4.7,
+                    price: 12000
+                },
+            }
         default:
             return state
     }
