@@ -1,15 +1,22 @@
 //import liraries
 import React, { Component } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
+import { withNavigation } from 'react-navigation'
 import { Icon, Item } from 'native-base';
 
 // create a component
-class SearchBar extends Component {
+class SearchBarOriginal extends Component {
+    constructor(props) {
+        super(props)
+        this.state = {
+
+        }
+    }
     render() {
         return (
             <View style={styles.container}>
                 <View style={styles.searchbarWrapper}>
-                    <Item style={styles.searchbar}>
+                    <Item style={styles.searchbar} onPress={() => this.props.navigation.navigate('Search')}>
                         <Icon name="ios-search" style={styles.searchIcon} />
                         <Text style={styles.searchInput}>Feelin' hungry today?</Text>
                     </Item>
@@ -30,6 +37,8 @@ const styles = StyleSheet.create({
     searchIcon: { fontSize: 25, color: '#444' },
     searchInput: { fontFamily: 'Nunito-Regular', fontSize: 18, color: '#333' }
 });
+
+const SearchBar = withNavigation(SearchBarOriginal);
 
 //make this component available to the app
 export default SearchBar;

@@ -8,12 +8,19 @@ import { createStackNavigator } from 'react-navigation-stack';
 import { View, StyleSheet } from 'react-native';
 
 import Home from './src/screens/Home';
+import Search from './src/screens/Search';
 
 const { store, persistor } = storage();
 
 const StackNav = createStackNavigator({
   Home: {
     screen: Home,
+    navigationOptions: {
+      headerShown: false,
+    },
+  },
+  Search: {
+    screen: Search,
     navigationOptions: {
       headerShown: false,
     },

@@ -2,10 +2,11 @@
 import React, { Component } from 'react';
 import { Text, StyleSheet } from 'react-native';
 import { Footer, FooterTab as FootTab, Button, Icon } from 'native-base';
+import { withNavigation } from 'react-navigation'
 import MCIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 // create a component
-class FooterTab extends Component {
+class FooterTabOriginal extends Component {
     render() {
         return (
             <Footer>
@@ -18,7 +19,7 @@ class FooterTab extends Component {
                         <MCIcon name="apps-box" size={25} />
                         <Text>Category</Text>
                     </Button>
-                    <Button vertical rounded style={{ backgroundColor: '#111' }}>
+                    <Button vertical rounded style={{ backgroundColor: '#111' }} onPress={() => this.props.navigation.navigate('Search')}>
                         <Icon name="ios-search" style={{ color: '#fff' }} size={55} />
                     </Button>
                     <Button vertical>
@@ -47,6 +48,8 @@ const styles = StyleSheet.create({
     active: { backgroundColor: '#111' },
     textActive: { color: '#fff' }
 });
+
+const FooterTab = withNavigation(FooterTabOriginal)
 
 //make this component available to the app
 export default FooterTab;
