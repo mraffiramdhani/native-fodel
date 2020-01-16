@@ -9,10 +9,24 @@ import { View, StyleSheet } from 'react-native';
 
 import Home from './src/screens/Home';
 import Search from './src/screens/Search';
+import Login from './src/screens/Login';
+import Register from './src/screens/Register';
 
 const { store, persistor } = storage();
 
 const StackNav = createStackNavigator({
+  Login: {
+    screen: Login,
+    navigationOptions: {
+      headerShown: false,
+    },
+  },
+  Register: {
+    screen: Register,
+    navigationOptions: {
+      headerShown: false,
+    },
+  },
   Home: {
     screen: Home,
     navigationOptions: {
@@ -25,7 +39,8 @@ const StackNav = createStackNavigator({
       headerShown: false,
     },
   },
-  initialRouteName: Home,
+}, {
+  initialRouteName: 'Home',
 })
 
 const AppContainer = createAppContainer(StackNav)

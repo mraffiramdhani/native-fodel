@@ -47,7 +47,7 @@ class Home extends Component {
                         <RestaurantList data={this.props.restaurant.data} />
                     </View>
                 </ScrollView>
-                <FooterTab />
+                <FooterTab active="Menu" />
             </Container>
         );
     }

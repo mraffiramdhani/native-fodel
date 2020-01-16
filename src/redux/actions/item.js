@@ -4,3 +4,9 @@ export const getPopularItems = () => {
         // payload:
     }
 }
+
+export const getItems = () => {
+    return {
+        type: 'GET_ITEMS',
+    }
+}

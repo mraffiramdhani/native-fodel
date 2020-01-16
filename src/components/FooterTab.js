@@ -1,35 +1,33 @@
 //import liraries
 import React, { Component } from 'react';
 import { Text, StyleSheet } from 'react-native';
-import { Footer, FooterTab as FootTab, Button, Icon } from 'native-base';
+import { Footer, FooterTab as FootTab, Button, Icon, Badge, Text as NativeText } from 'native-base';
 import { withNavigation } from 'react-navigation'
-import MCIcon from 'react-native-vector-icons/MaterialCommunityIcons';
+
+const menuList = [
+    { icon: 'hamburger', text: 'Menu' },
+    { icon: 'apps-box', text: 'Category' },
+    { icon: 'cart', text: 'Cart' },
+    { icon: 'face-profile', text: 'Profile' },
+]
 
 // create a component
 class FooterTabOriginal extends Component {
+    constructor(props) {
+        super(props)
+    }
     render() {
         return (
             <Footer>
                 <FootTab style={styles.footerTab}>
-                    <Button vertical style={styles.active}>
-                        <MCIcon name="hamburger" size={25} style={styles.textActive} />
-                        <Text style={styles.textActive}>Menu</Text>
-                    </Button>
-                    <Button vertical>
-                        <MCIcon name="apps-box" size={25} />
-                        <Text>Category</Text>
-                    </Button>
-                    <Button vertical rounded style={{ backgroundColor: '#111' }} onPress={() => this.props.navigation.navigate('Search')}>
-                        <Icon name="ios-search" style={{ color: '#fff' }} size={55} />
-                    </Button>
-                    <Button vertical>
-                        <MCIcon name="cart" size={25} />
-                        <Text>Cart</Text>
-                    </Button>
-                    <Button vertical>
-                        <MCIcon name="face-profile" size={25} />
-                        <Text>Profile</Text>
-                    </Button>
+                    {menuList && menuList.map((v, i) => {
+                        return (
+                            <Button key={i} vertical style={this.props.active === v.text ? styles.active : {}}>
+                                <Icon name={v.icon} type="MaterialCommunityIcons" style={this.props.active === v.text ? styles.textActive : styles.text} />
+                                <Text style={this.props.active === v.text ? styles.textActive : styles.text}>{v.text}</Text>
+                            </Button>
+                        )
+                    })}
                 </FootTab>
             </Footer>
         );
@@ -38,14 +36,9 @@ class FooterTabOriginal extends Component {
 
 // define your styles
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-        backgroundColor: '#2c3e50',
-    },
     footerTab: { backgroundColor: '#fff' },
     active: { backgroundColor: '#111' },
+    text: { color: 'black' },
     textActive: { color: '#fff' }
 });
 

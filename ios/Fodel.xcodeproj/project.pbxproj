@@ -54,6 +54,7 @@
 		C39F436FE8BA462E8AA5EEC5 /* mcd.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 1D278944963E40429F773353 /* mcd.jpg */; };
 		3D8E6DBD1C414BF183D680A5 /* pizza-hut.png in Resources */ = {isa = PBXBuildFile; fileRef = E88948D3BA864C1182EB5040 /* pizza-hut.png */; };
 		2D55B11656314B8FB836A6E1 /* starbucks.jpg in Resources */ = {isa = PBXBuildFile; fileRef = E2EDAD830E7E4FF1AF1328EF /* starbucks.jpg */; };
+		ACF076B4EFEF4F9380A898B5 /* favicon.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FDE990FC89F43D5A977CF5C /* favicon.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -127,6 +128,7 @@
 		1D278944963E40429F773353 /* mcd.jpg */ = {isa = PBXFileReference; name = "mcd.jpg"; path = "../src/assets/icons/mcd.jpg"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 		E88948D3BA864C1182EB5040 /* pizza-hut.png */ = {isa = PBXFileReference; name = "pizza-hut.png"; path = "../src/assets/icons/pizza-hut.png"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 		E2EDAD830E7E4FF1AF1328EF /* starbucks.jpg */ = {isa = PBXFileReference; name = "starbucks.jpg"; path = "../src/assets/icons/starbucks.jpg"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		6FDE990FC89F43D5A977CF5C /* favicon.png */ = {isa = PBXFileReference; name = "favicon.png"; path = "../src/assets/icons/favicon.png"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -275,6 +277,7 @@
 				1D278944963E40429F773353 /* mcd.jpg */,
 				E88948D3BA864C1182EB5040 /* pizza-hut.png */,
 				E2EDAD830E7E4FF1AF1328EF /* starbucks.jpg */,
+				6FDE990FC89F43D5A977CF5C /* favicon.png */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -454,6 +457,7 @@
 				C39F436FE8BA462E8AA5EEC5 /* mcd.jpg in Resources */,
 				3D8E6DBD1C414BF183D680A5 /* pizza-hut.png in Resources */,
 				2D55B11656314B8FB836A6E1 /* starbucks.jpg in Resources */,
+				ACF076B4EFEF4F9380A898B5 /* favicon.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
