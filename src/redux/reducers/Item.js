@@ -44,7 +44,18 @@ const item = (state = initialState, action) => {
                     restaurant: "Teman Sejiwa",
                     description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
                     rating: 4.7,
-                    price: 12000
+                    price: 12000,
+                    category: [
+                        { name: "Minuman" },
+                        { name: "Kopi" },
+                    ],
+                    suggest: [
+                        { name: "Kopi Teman Sejiwa", image: "drink.jpg", restaurant: "Teman Sejiwa", rating: 4.7, price: 12000 },
+                        { name: "Big Mac", image: "hamburger.jpg", restaurant: "MC Donalds", rating: 4.0, price: 32000 },
+                        { name: "Cheese Bomb", image: "pizza.jpg", restaurant: "Pizza Hut", rating: 4.4, price: 24000 },
+                        { name: "Salad Buah", image: "salad.jpg", restaurant: "Bu Otang", rating: 4.2, price: 14000 },
+                        { name: "Sup Labu", image: "soup.jpg", restaurant: "Bu Otang", rating: 4.7, price: 10000 },
+                    ],
                 },
             }
         default:

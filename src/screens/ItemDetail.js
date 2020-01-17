@@ -1,6 +1,8 @@
 //import liraries
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, ImageBackground, ScrollView } from 'react-native';
+import { View, StyleSheet, ImageBackground, ScrollView } from 'react-native';
+import Icon from 'react-native-vector-icons/Ionicons';
+import { Button, Text, Badge } from 'native-base';
 import { connect } from 'react-redux';
 import { getItem } from '../redux/actions/item';
 
@@ -12,76 +14,118 @@ class ItemDetail extends Component {
     componentDidMount() {
         this.props.dispatch(getItem())
     }
+
+    rupiah(angka) {
+        var rupiah = '';
+        var angkarev = angka.toString().split('').reverse().join('');
+        for (var i = 0; i < angkarev.length; i++) if (i % 3 === 0) rupiah += angkarev.substr(i, 3) + '.';
+        return 'Rp.' + rupiah.split('', rupiah.length - 1).reverse().join('');
+    }
+
     render() {
         return (
-            <View style={styles.wrapper}>
-                <View style={styles.container}>
-                    <ImageBackground source={{ uri: `asset:/images/${this.props.item.data.image}` }} style={styles.image} resizeMode="cover">
-                        <View style={styles.headerWrapper}>
-                            <ButtonBack />
+            <View style={styles.container}>
+                <ImageBackground source={{ uri: `asset:/images/${this.props.item.data.image}` }} style={styles.imageBackground} resizeMethod="auto" resizeMode="cover">
+                    <ButtonBack />
+                </ImageBackground>
+                <View style={styles.infoCard}>
+                    <Text style={styles.name}>{this.props.item.data.name}</Text>
+                    <ScrollView showsVerticalScrollIndicator={false}>
+                        <View style={styles.infoWrapper}>
+                            <View style={styles.ratingWrapper}>
+                                <Icon name="ios-star" size={30} style={styles.star} />
+                                <Text style={styles.starCount}>{this.props.item.data.rating}</Text>
+                            </View>
+                            <Text style={styles.price}>{this.rupiah(this.props.item.data.price)}</Text>
                         </View>
-                    </ImageBackground>
-                </View>
-                <View style={styles.bodyWrapper}>
-                    <View style={{ backgroundColor: 'blue', padding: 10 }}>
-                        <Text style={styles.title}>{this.props.item.data.name}</Text>
-                        <View style={{ height: '90%', backgroundColor: 'yellow' }}>
-                            <ScrollView>
-                                <Text style={styles.description}>{this.props.item.data.description}</Text>
-                                <Text style={styles.description}>{this.props.item.data.description}</Text>
-                                <Text style={styles.description}>{this.props.item.data.description}</Text>
-                                <Text style={styles.description}>{this.props.item.data.description}</Text>
-                                <Text style={styles.description}>{this.props.item.data.description}</Text>
-                                <Text style={styles.description}>{this.props.item.data.description}</Text>
-                                <Text style={styles.description}>{this.props.item.data.description}</Text>
-                                <Text style={styles.description}>{this.props.item.data.description}</Text>
-                                <Text style={styles.description}>{this.props.item.data.description}</Text>
-                            </ScrollView>
-
+                        <Text style={styles.description}>{this.props.item.data.description}</Text>
+                        <View style={styles.categoryWrapper}>
+                            {this.props.item.data.category.map((v, i) => (
+                                <Badge style={styles.categories} key={i}>
+                                    <Text style={styles.categoryText}>{v.name}</Text>
+                                </Badge>
+                            ))}
                         </View>
-                    </View>
+                    </ScrollView>
+                    <Button rounded dark style={styles.button}>
+                        <Text style={styles.buttonText}>Add to cart</Text>
+                    </Button>
                 </View>
-            </View >
+            </View>
         );
     }
 }
 
 // define your styles
 const styles = StyleSheet.create({
-    wrapper: {
+    container: {
         flex: 1,
         flexDirection: 'column',
-        backgroundColor: '#fff'
     },
-    container: {
-        flexDirection: 'row',
-        justifyContent: 'center',
+    imageBackground: {
+        flex: 1,
+        padding: 20,
     },
-    headerWrapper: {
-        height: '50%',
-        flexDirection: 'column',
-        padding: 20
-    },
-    image: {
-        width: '100%',
-        height: '100%',
-    },
-    bodyWrapper: {
+    infoCard: {
         backgroundColor: 'white',
-        marginTop: -50,
+        flex: 1,
+        flexDirection: 'column',
+        marginTop: -120,
         borderTopRightRadius: 50,
         borderTopLeftRadius: 50,
         padding: 30
     },
-    title: {
+    infoWrapper: {
+        flex: 1,
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+    },
+    ratingWrapper: {
+        flex: 1,
+        flexDirection: 'row',
+        alignItems: 'center',
+    },
+    star: {
+        color: '#e3bd00',
+    },
+    starCount: {
         fontFamily: 'Nunito-Regular',
-        fontSize: 30,
+        fontSize: 25,
+    },
+    price: {
+        fontFamily: 'Nunito-Regular',
+        fontSize: 25,
+        color: 'green',
+    },
+    name: {
+        fontFamily: 'Nunito-Regular',
+        fontSize: 25,
+        marginBottom: 5,
     },
     description: {
-        width: '100%',
         fontFamily: 'Nunito-Regular',
-        fontSize: 12,
-        color: '#777',
+        fontSize: 14,
+        color: '#666',
+        marginTop: 5,
+    },
+    button: { justifyContent: 'center', marginTop: 10 },
+    buttonText: {
+        color: 'white',
+        textTransform: 'uppercase',
+    },
+    categoryWrapper: {
+        flexDirection: 'row',
+        marginTop: 5,
+        flexWrap: 'wrap',
+    },
+    categories: {
+        backgroundColor: '#ddd',
+        marginRight: 5,
+        marginBottom: 5,
+    },
+    categoryText: {
+        color: '#111',
+        fontFamily: 'Nunito-Regular',
     },
 });
 

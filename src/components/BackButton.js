@@ -2,15 +2,14 @@
 import React, { Component } from 'react';
 import { StyleSheet, View, TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
+import { withNavigation } from 'react-navigation';
 
 // create a component
-class BackButton extends Component {
+class BackButtonOriginal extends Component {
     render() {
         return (
-            <TouchableOpacity onPress={() => this.props.navigation.goBack()}>
-                <View style={styles.container}>
-                    <Icon name="ios-arrow-back" style={styles.icon} />
-                </View>
+            <TouchableOpacity style={styles.container} onPress={() => this.props.navigation.goBack()}>
+                <Icon name="ios-arrow-back" style={styles.icon} />
             </TouchableOpacity>
         );
     }
@@ -30,6 +29,8 @@ const styles = StyleSheet.create({
         fontSize: 30,
     },
 });
+
+const BackButton = withNavigation(BackButtonOriginal)
 
 //make this component available to the app
 export default BackButton;

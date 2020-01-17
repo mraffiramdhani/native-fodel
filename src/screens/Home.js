@@ -14,21 +14,25 @@ import Category from '../components/Category';
 import SliderTitle from '../components/SliderTitle';
 import CardList from '../components/CardList';
 import RestaurantList from '../components/RestaurantList';
-import FooterTab from '../components/FooterTab';
 
 // create a component
 class Home extends Component {
     constructor(props) {
         super(props)
         this.state = {
-
+            isCategoriesLoading: true,
+            isItemsLoading: true,
+            isRestaurantsLoading: true,
         }
     }
 
-    componentDidMount() {
-        this.props.dispatch(getCategories())
-        this.props.dispatch(getPopularItems())
-        this.props.dispatch(getRestaurants())
+    async componentDidMount() {
+        await this.props.dispatch(getCategories())
+        await this.setState({ isCategoriesLoading: false })
+        await this.props.dispatch(getPopularItems())
+        await this.setState({ isItemsLoading: false })
+        await this.props.dispatch(getRestaurants())
+        await this.setState({ isRestaurantsLoading: false })
     }
 
     render() {
@@ -40,14 +44,19 @@ class Home extends Component {
                     showsVerticalScrollIndicator={false}
                 >
                     <View style={styles.content}>
-                        <Category data={this.props.category.data} />
+                        {!this.state.isCategoriesLoading &&
+                            <Category data={this.props.category.data} />
+                        }
                         <SliderTitle title="Popular Menu" viewAll />
-                        <CardList data={this.props.item.data} />
+                        {!this.state.isItemsLoading &&
+                            <CardList data={this.props.item.data} />
+                        }
                         <SliderTitle title="Trending Restaurant" viewAll />
-                        <RestaurantList data={this.props.restaurant.data} />
+                        {!this.state.isRestaurantsLoading &&
+                            <RestaurantList data={this.props.restaurant.data} />
+                        }
                     </View>
                 </ScrollView>
-                <FooterTab active="Menu" />
             </Container>
         );
     }
