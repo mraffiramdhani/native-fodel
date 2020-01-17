@@ -30,7 +30,7 @@ class SearchOriginal extends Component {
                     <BackButton />
                     <View style={styles.searchWrapper}>
                         <IonIcon name="ios-search" style={styles.searchIcon} />
-                        <Input style={styles.searchInput} placeholder="Feelin' hungry today?" autoFocus />
+                        <Input style={styles.searchInput} placeholder="Feelin' hungry today?" />
                     </View>
                 </View>
                 <ScrollView showsVerticalScrollIndicator={false}>

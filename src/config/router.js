@@ -192,6 +192,7 @@ const BottomNav = createBottomTabNavigator({
         },
     },
 }, {
+    initialRouteName: 'Menu',
     tabBarOptions: {
         activeTintColor: 'white',
         activeBackgroundColor: 'black',
