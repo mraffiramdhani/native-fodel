@@ -1,7 +1,7 @@
 import { createStore, applyMiddleware } from 'redux'
 import { createLogger } from 'redux-logger'
 import { persistStore, persistReducer } from 'redux-persist'
-import { AsyncStorage } from 'react-native'
+import AsyncStorage from '@react-native-community/async-storage'
 import autoMergeLevel2 from 'redux-persist/es/stateReconciler/autoMergeLevel2'
 import promiseMiddleware from 'redux-promise-middleware'
 

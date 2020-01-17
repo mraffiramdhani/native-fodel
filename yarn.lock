@@ -843,6 +843,11 @@
     "@types/istanbul-reports" "^1.1.1"
     "@types/yargs" "^13.0.0"
 
+"@react-native-community/async-storage@^1.7.1":
+  version "1.7.1"
+  resolved "https://registry.yarnpkg.com/@react-native-community/async-storage/-/async-storage-1.7.1.tgz#ef2104d865de61ad91bba66613e57e689ff4e6a1"
+  integrity sha512-/oX/x+EU4xNaqIaC/epVKzO8XghzImPA7l8cLz3USEFmtFiXFjBbTeeIFjjEm/u4/cv38Wi1xMEa10PHIWygRg==
+
 "@react-native-community/cli-debugger-ui@^3.0.0":
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/@react-native-community/cli-debugger-ui/-/cli-debugger-ui-3.0.0.tgz#d01d08d1e5ddc1633d82c7d84d48fff07bd39416"
@@ -5249,6 +5254,13 @@ react-lifecycles-compat@^3.0.4:
   version "3.0.4"
   resolved "https://registry.yarnpkg.com/react-lifecycles-compat/-/react-lifecycles-compat-3.0.4.tgz#4f1a273afdfc8f3488a8c516bfda78f872352362"
   integrity sha512-fBASbA6LnOU9dOU2eW7aQ8xmYBSXUIWr+UmF9b1efZBazGNO+rcXT/icdKnYm2pTwcRylVUYwW7H1PHfLekVzA==
+
+react-native-counters@^0.0.1:
+  version "0.0.1"
+  resolved "https://registry.yarnpkg.com/react-native-counters/-/react-native-counters-0.0.1.tgz#d2de448c6e1561adff4d6109f23bde6c4a72a8fa"
+  integrity sha512-k2NpCJcHatrvM259+uUD2qAhq3iFLH9onCBKcXgLUrKd+FwiRXlq6vz6Th/1lUiWjjnnYT/gLtTbnho3tJui/Q==
+  dependencies:
+    prop-types "^15.6.2"
 
 react-native-drawer@2.5.1:
   version "2.5.1"
