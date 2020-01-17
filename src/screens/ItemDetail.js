@@ -11,8 +11,16 @@ import ButtonBack from '../components/BackButton';
 
 // create a component
 class ItemDetail extends Component {
-    componentDidMount() {
-        this.props.dispatch(getItem())
+    constructor(props) {
+        super(props)
+        this.state = {
+            isLoading: true,
+        }
+    }
+
+    async componentDidMount() {
+        await this.props.dispatch(getItem())
+        await this.setState({ isLoading: false })
     }
 
     rupiah(angka) {
@@ -25,32 +33,36 @@ class ItemDetail extends Component {
     render() {
         return (
             <View style={styles.container}>
-                <ImageBackground source={{ uri: `asset:/images/${this.props.item.data.image}` }} style={styles.imageBackground} resizeMethod="auto" resizeMode="cover">
-                    <ButtonBack />
-                </ImageBackground>
-                <View style={styles.infoCard}>
-                    <Text style={styles.name}>{this.props.item.data.name}</Text>
-                    <ScrollView showsVerticalScrollIndicator={false}>
-                        <View style={styles.infoWrapper}>
-                            <View style={styles.ratingWrapper}>
-                                <Icon name="ios-star" size={30} style={styles.star} />
-                                <Text style={styles.starCount}>{this.props.item.data.rating}</Text>
-                            </View>
-                            <Text style={styles.price}>{this.rupiah(this.props.item.data.price)}</Text>
+                {!this.state.isLoading &&
+                    <>
+                        <ImageBackground source={{ uri: `asset:/images/${this.props.item.data.image}` }} style={styles.imageBackground} resizeMethod="auto" resizeMode="cover">
+                            <ButtonBack />
+                        </ImageBackground>
+                        <View style={styles.infoCard}>
+                            <Text style={styles.name}>{this.props.item.data.name}</Text>
+                            <ScrollView showsVerticalScrollIndicator={false}>
+                                <View style={styles.infoWrapper}>
+                                    <View style={styles.ratingWrapper}>
+                                        <Icon name="ios-star" size={30} style={styles.star} />
+                                        <Text style={styles.starCount}>{this.props.item.data.rating}</Text>
+                                    </View>
+                                    <Text style={styles.price}>{this.rupiah(this.props.item.data.price)}</Text>
+                                </View>
+                                <Text style={styles.description}>{this.props.item.data.description}</Text>
+                                <View style={styles.categoryWrapper}>
+                                    {this.props.item.data.category.map((v, i) => (
+                                        <Badge style={styles.categories} key={i}>
+                                            <Text style={styles.categoryText}>{v.name}</Text>
+                                        </Badge>
+                                    ))}
+                                </View>
+                            </ScrollView>
+                            <Button rounded dark style={styles.button}>
+                                <Text style={styles.buttonText}>Add to cart</Text>
+                            </Button>
                         </View>
-                        <Text style={styles.description}>{this.props.item.data.description}</Text>
-                        <View style={styles.categoryWrapper}>
-                            {this.props.item.data.category.map((v, i) => (
-                                <Badge style={styles.categories} key={i}>
-                                    <Text style={styles.categoryText}>{v.name}</Text>
-                                </Badge>
-                            ))}
-                        </View>
-                    </ScrollView>
-                    <Button rounded dark style={styles.button}>
-                        <Text style={styles.buttonText}>Add to cart</Text>
-                    </Button>
-                </View>
+                    </>
+                }
             </View>
         );
     }

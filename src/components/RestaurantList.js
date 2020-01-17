@@ -1,6 +1,8 @@
 //import liraries
 import React, { Component } from 'react';
 import { View, Text, StyleSheet, ScrollView, Image } from 'react-native';
+import { connect } from 'react-redux';
+import { getRestaurants } from '../redux/actions/restaurant';
 
 // create a component
 class RestaurantList extends Component {
@@ -10,6 +12,13 @@ class RestaurantList extends Component {
 
         }
     }
+
+    async componentDidMount() {
+        await this.props.dispatch(getRestaurants())
+        await this.setState({
+            isLoading: false,
+        })
+    }
     render() {
         return (
             <View style={styles.container}>
@@ -17,13 +26,13 @@ class RestaurantList extends Component {
                     horizontal
                     showsHorizontalScrollIndicator={false}
                 >
-                    {this.props.data && this.props.data.map((v, i) => {
+                    {!this.state.isLoading && this.props.restaurant.data.map((v, i) => {
                         var img = `asset:/icons/${v.icon}`
                         var styled = [styles.card]
                         if (i === 0) {
                             styled.push({ marginLeft: 20 })
                         }
-                        if (i === this.props.data.length - 1) {
+                        if (i === this.props.restaurant.data.length - 1) {
                             styled.push({ merginRight: 20 })
                         }
                         return (
@@ -53,5 +62,11 @@ const styles = StyleSheet.create({
     title: { marginTop: 10, textAlign: 'center', fontFamily: 'Nunito-Regular' },
 });
 
+const mapStateToProps = state => {
+    return {
+        restaurant: state.restaurant
+    }
+}
+
 //make this component available to the app
-export default RestaurantList;
+export default connect(mapStateToProps)(RestaurantList);

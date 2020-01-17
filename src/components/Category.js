@@ -1,15 +1,23 @@
 //import liraries
 import React, { Component } from 'react';
 import { View, Text, StyleSheet, ScrollView, Image } from 'react-native';
+import { connect } from 'react-redux';
+import { getCategories } from '../redux/actions/category';
 
 // create a component
 class Category extends Component {
     constructor(props) {
         super(props)
         this.state = {
-
+            isLoading: true,
         }
     }
+
+    async componentDidMount() {
+        await this.props.dispatch(getCategories());
+        await this.setState({ isLoading: false })
+    }
+
     render() {
         return (
             <View style={styles.container}>
@@ -17,13 +25,35 @@ class Category extends Component {
                     horizontal
                     showsHorizontalScrollIndicator={false}
                 >
-                    {this.props.data && this.props.data.map((v, i) => {
+                    {this.state.isLoading &&
+                        <>
+                            <View style={[styles.card, { marginLeft: 20 }]}>
+                                <View style={styles.cardWrapper}>
+                                    <View style={{ backgroundColor: '#eee', width: 50, height: 50 }}></View>
+                                    <View style={{ backgroundColor: '#eee', height: 10, width: 50, marginTop: 5 }}></View>
+                                </View>
+                            </View>
+                            <View style={[styles.card, { marginLeft: 20 }]}>
+                                <View style={styles.cardWrapper}>
+                                    <View style={{ backgroundColor: '#eee', width: 50, height: 50 }}></View>
+                                    <View style={{ backgroundColor: '#eee', height: 10, width: 50, marginTop: 5 }}></View>
+                                </View>
+                            </View>
+                            <View style={[styles.card, { marginLeft: 20 }]}>
+                                <View style={styles.cardWrapper}>
+                                    <View style={{ backgroundColor: '#eee', width: 50, height: 50 }}></View>
+                                    <View style={{ backgroundColor: '#eee', height: 10, width: 50, marginTop: 5 }}></View>
+                                </View>
+                            </View>
+                        </>
+                    }
+                    {!this.state.isLoading && this.props.category.data.map((v, i) => {
                         var img = `asset:/icons/${v.icon}`;
                         var styler = [styles.card]
                         if (i === 0) {
                             styler.push({ marginLeft: 20 })
                         }
-                        if (i === this.props.data.length - 1) {
+                        if (i === this.props.category.data.length - 1) {
                             styler.push({ marginRight: 20 })
                         }
                         return (
@@ -53,5 +83,11 @@ const styles = StyleSheet.create({
     title: { marginTop: 10, textAlign: 'center', fontFamily: 'Nunito-Regular' },
 });
 
+const mapStateToProps = state => {
+    return {
+        category: state.category,
+    }
+}
+
 //make this component available to the app
-export default Category;
+export default connect(mapStateToProps)(Category);

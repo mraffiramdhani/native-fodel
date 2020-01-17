@@ -1,6 +1,6 @@
 //import liraries
 import React, { Component } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, Image } from 'react-native';
 import { withNavigation } from 'react-navigation';
 
 // create a component
@@ -13,7 +13,8 @@ class SplashOriginal extends Component {
     render() {
         return (
             <View style={styles.container}>
-                <Text>Splash</Text>
+                <Image source={require('../assets/icons/favicon.png')} style={styles.logo} />
+                <Text style={styles.title}>Fodel</Text>
             </View>
         );
     }
@@ -25,8 +26,16 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: '#2c3e50',
     },
+    logo: {
+        width: 110,
+        height: 110,
+    },
+    title: {
+        fontFamily: 'Nunito-Regular',
+        fontSize: 40,
+        color: '#2c7c96',
+    }
 });
 
 const Splash = withNavigation(SplashOriginal)

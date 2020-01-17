@@ -1,16 +1,24 @@
 //import liraries
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, Image, ScrollView } from 'react-native';
+import { View, Text, StyleSheet, Image, ScrollView, TouchableOpacity } from 'react-native';
 import IonIcon from 'react-native-vector-icons/Ionicons';
+import { withNavigation } from 'react-navigation';
+import { connect } from 'react-redux';
+import { getPopularItems } from '../redux/actions/item';
 
 
 // create a component
-class CardList extends Component {
+class CardListOriginal extends Component {
     constructor(props) {
         super(props)
         this.state = {
-
+            isLoading: true
         }
+    }
+
+    async componentDidMount() {
+        await this.props.dispatch(getPopularItems())
+        await this.setState({ isLoading: false })
     }
 
     rupiah(angka) {
@@ -27,13 +35,13 @@ class CardList extends Component {
                     horizontal
                     showsHorizontalScrollIndicator={false}
                 >
-                    {this.props.data && this.props.data.map((v, i) => {
+                    {!this.state.isLoading && this.props.item.data.map((v, i) => {
                         var img = `asset:/images/${v.image}`
                         var styler = [styles.menuWrapper]
                         if (i === 0) {
                             styler.push({ marginLeft: 20 })
                         }
-                        if (i === this.props.data.length - 1) {
+                        if (i === this.props.item.data.length - 1) {
                             styler.push({ marginRight: 20 })
                         }
                         return (
@@ -64,7 +72,7 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
     },
-    menuWrapper: { flex: 1, flexDirection: 'column', margin: 10, },
+    menuWrapper: { flex: 1, flexDirection: 'column', margin: 10 },
     image: { width: 200, height: 120, borderRadius: 15 },
     menuInfo: { flex: 1, flexDirection: 'column', margin: 10, },
     restaurant: { fontFamily: 'Nunito-Regular', color: '#444', fontSize: 12 },
@@ -75,5 +83,13 @@ const styles = StyleSheet.create({
     price: { fontFamily: 'Nunito-Regular', color: 'green' }
 });
 
+const CardList = withNavigation(CardListOriginal)
+
+const mapStateToProps = state => {
+    return {
+        item: state.item
+    }
+}
+
 //make this component available to the app
-export default CardList;
+export default connect(mapStateToProps)(CardList);
