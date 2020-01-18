@@ -1,18 +1,13 @@
 //import liraries
 import React, { Component } from 'react';
-import { View, StyleSheet } from 'react-native';
-import {Button, Text} from 'native-base';
-import {StackActions, NavigationActions,withNavigation} from 'react-navigation';
+import { View, StyleSheet, TouchableOpacity } from 'react-native';
+import { Text } from 'native-base';
+import { withNavigation } from 'react-navigation';
 
 //component
 import BackButton from '../components/BackButton';
 import SliderTitle from '../components/SliderTitle';
 import ItemAccordion from '../components/ItemAccordion';
-
-const resetAction = StackActions.reset({
-  index: 0,
-  actions: [NavigationActions.navigate({ routeName: 'Cart' })],
-});
 
 // create a component
 class CheckoutOriginal extends Component {
@@ -31,18 +26,18 @@ class CheckoutOriginal extends Component {
                     <SliderTitle title="Checkout" />
                 </View>
                 <View style={styles.contentWrapper}>
-                    <View style={{backgroundColor: 'white', flex:1, flexDirection: 'column' , elevation: 5, borderRadius: 50, padding: 30, }}>
+                    <View style={{ backgroundColor: 'white', flex: 1, flexDirection: 'column', elevation: 5, borderRadius: 50, padding: 30, }}>
                         <View>
-                        <ItemAccordion data={[{title: "Item(s) List", content: "asdasd"}]} />
+                            <ItemAccordion data={[{ title: "Item(s) List", content: "asdasd" }]} />
                         </View>
-                        <View style={{flex: 1, flexDirection: 'column', margin: 20, alignItems: 'center' }}>
-                            <Text style={{fontFamily: 'Nunito-Regular', fontSize: 30}}>Your Total</Text>
-                            <Text style={{color: 'green', fontFamily: 'Nunito-Regular', fontSize: 40}}>{this.rupiah(12000)}</Text>
+                        <View style={{ flex: 1, flexDirection: 'column', margin: 20, alignItems: 'center' }}>
+                            <Text style={{ fontFamily: 'Nunito-Regular', fontSize: 30 }}>Your Total</Text>
+                            <Text style={{ color: 'green', fontFamily: 'Nunito-Regular', fontSize: 40 }}>{this.rupiah(12000)}</Text>
                         </View>
                         <View>
-                            <Button rounded dark style={{justifyContent: 'center' }} onPress={() => this.props.navigation.dispatch(resetAction)}>
-                                <Text>Confirm</Text>
-                            </Button>
+                            <TouchableOpacity style={{ borderRadius: 30, backgroundColor: '#222', padding: 20 }} onPress={() => this.props.navigation.navigate('TransactionComplete')}>
+                                <Text style={{ textAlign: 'center', fontFamily: 'Nunito-Regular', textTransform: 'uppercase', color: 'white' }}>Confirm</Text>
+                            </TouchableOpacity>
                         </View>
                     </View>
                 </View>
@@ -61,7 +56,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#fff',
     },
     headerWrapper: {
-        flex: 0, 
+        flex: 0,
         flexDirection: 'row',
         margin: 20,
     },

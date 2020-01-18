@@ -30,9 +30,13 @@ class Profile extends Component {
                             </View>
                         </View>
                         <View style={{ backgroundColor: 'white', elevation: 1, marginTop: 20, padding: 10, flexDirection: 'row', alignItems: 'center' }}>
+                            <Feather name="file-text" size={25} />
+                            <Text style={{ fontFamily: 'Nunito-Regular', fontSize: 18, marginLeft: 10 }}>Order History</Text>
+                        </View>
+                        {/* <View style={{ backgroundColor: 'white', elevation: 1, padding: 10, flexDirection: 'row', alignItems: 'center' }}>
                             <Feather name="help-circle" size={25} />
                             <Text style={{ fontFamily: 'Nunito-Regular', fontSize: 18, marginLeft: 10 }}>Help</Text>
-                        </View>
+                        </View> */}
                         <View style={{ backgroundColor: 'white', elevation: 1, padding: 10, flexDirection: 'row', alignItems: 'center' }}>
                             <Feather name="log-out" size={25} color="red" />
                             <Text style={{ fontFamily: 'Nunito-Regular', fontSize: 18, marginLeft: 10, color: 'red' }}>Log Out</Text>

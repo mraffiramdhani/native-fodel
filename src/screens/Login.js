@@ -1,7 +1,7 @@
 //import liraries
 import React, { Component } from 'react';
 import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
-import {Input} from 'native-base';
+import { Input } from 'native-base';
 import { withNavigation } from 'react-navigation';
 
 // create a component
@@ -26,11 +26,12 @@ class LoginOriginal extends Component {
                     <View style={styles.input}>
                         <Input placeholder="Password" />
                     </View>
+                    <Text style={{ textAlign: 'right', margin: 5, color: '#0DAAFF' }} onPress={() => this.props.navigation.navigate('ForgotPassword')}>Forgot Password?</Text>
                     <TouchableOpacity style={styles.loginButton} onPress={() => this.props.navigation.navigate('Home')}>
                         <Text style={styles.buttonText}>Login</Text>
                     </TouchableOpacity>
                     <TouchableOpacity style={styles.registerButton} onPress={() => this.props.navigation.navigate('Register')}>
-                        <Text style={[styles.buttonText, {color: 'black'}]}>Register</Text>
+                        <Text style={[styles.buttonText, { color: 'black' }]}>Register</Text>
                     </TouchableOpacity>
                 </View>
             </View>
@@ -47,71 +48,71 @@ const styles = StyleSheet.create({
         padding: 20,
     },
     headerWrapper: {
-        flex:0, 
-        flexDirection: 'row', 
-        alignItems: 'center' 
+        flex: 0,
+        flexDirection: 'row',
+        alignItems: 'center'
     },
     logo: {
-        width: 30, 
+        width: 30,
         height: 30
     },
     logoText: {
-        marginLeft: 4, 
+        marginLeft: 4,
         fontFamily: 'Nunito-Regular'
     },
     illustWrapper: {
-        flex:1, 
-        flexDirection: 'column', 
-        justifyContent: 'center', 
-        alignItems: 'center' 
+        flex: 1,
+        flexDirection: 'column',
+        justifyContent: 'center',
+        alignItems: 'center'
     },
     illust: {
-        width: 150, 
+        width: 150,
         height: 150
     },
     prologWrapper: {
-        flex:0, 
+        flex: 0,
         flexDirection: 'column',
         alignItems: 'center',
     },
     title: {
-        fontFamily: 'Nunito-Regular', 
+        fontFamily: 'Nunito-Regular',
         fontSize: 30
     },
     formWrapper: {
-        flex:0, 
-        flexDirection: 'column', 
+        flex: 0,
+        flexDirection: 'column',
         marginTop: 20
     },
     loginButton: {
-        backgroundColor: '#333', 
-        padding: 20, 
-        borderRadius: 12, 
-        justifyContent: 'center', 
-        flex:0, 
-        flexDirection: 'row', 
-        marginTop:10, 
+        backgroundColor: '#333',
+        padding: 20,
+        borderRadius: 12,
+        justifyContent: 'center',
+        flex: 0,
+        flexDirection: 'row',
+        marginTop: 10,
         marginRight: 5
     },
     buttonText: {
-        fontFamily: 'Nunito-Regular', 
-        color: '#fff', 
+        fontFamily: 'Nunito-Regular',
+        color: '#fff',
         textTransform: 'uppercase'
     },
     registerButton: {
-        backgroundColor: '#eee', 
-        padding: 20, 
-        borderRadius: 12, 
-        justifyContent: 'center', 
-        flex:0, 
+        backgroundColor: '#eee',
+        padding: 20,
+        borderRadius: 12,
+        justifyContent: 'center',
+        flex: 0,
         flexDirection: 'row',
-        marginTop:10, 
+        marginTop: 10,
         marginLeft: 5
     },
     input: {
-        flex:0, 
-        flexDirection: 'row', 
-        margin: 5, 
+        flex: 0,
+        flexDirection: 'row',
+        margin: 5,
         borderBottomWidth: 2
     },
 });

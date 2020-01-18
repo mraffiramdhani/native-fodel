@@ -58,6 +58,8 @@
 		2F63B24C1D5C400DB097EDD8 /* illust_1.png in Resources */ = {isa = PBXBuildFile; fileRef = 98274EF61EE549848EC93C9A /* illust_1.png */; };
 		E13F5877243C409AAC8E30FC /* login.png in Resources */ = {isa = PBXBuildFile; fileRef = 50F2448CC4BB4233B276371D /* login.png */; };
 		1EB5FC9AC3B54CAF8E2BA01F /* register.png in Resources */ = {isa = PBXBuildFile; fileRef = 1FF7538A40834B91815BFDEC /* register.png */; };
+		76114726418D4512953BE803 /* finish.png in Resources */ = {isa = PBXBuildFile; fileRef = 2F2B3409FABC45F5B89F7445 /* finish.png */; };
+		EC3E52443C0D48898ED324D7 /* forgot_password.png in Resources */ = {isa = PBXBuildFile; fileRef = 97CD43B06C7445CFA31C98F0 /* forgot_password.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -135,6 +137,8 @@
 		98274EF61EE549848EC93C9A /* illust_1.png */ = {isa = PBXFileReference; name = "illust_1.png"; path = "../src/assets/images/illust_1.png"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 		50F2448CC4BB4233B276371D /* login.png */ = {isa = PBXFileReference; name = "login.png"; path = "../src/assets/images/login.png"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 		1FF7538A40834B91815BFDEC /* register.png */ = {isa = PBXFileReference; name = "register.png"; path = "../src/assets/images/register.png"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		2F2B3409FABC45F5B89F7445 /* finish.png */ = {isa = PBXFileReference; name = "finish.png"; path = "../src/assets/images/finish.png"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		97CD43B06C7445CFA31C98F0 /* forgot_password.png */ = {isa = PBXFileReference; name = "forgot_password.png"; path = "../src/assets/images/forgot_password.png"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -287,6 +291,8 @@
 				98274EF61EE549848EC93C9A /* illust_1.png */,
 				50F2448CC4BB4233B276371D /* login.png */,
 				1FF7538A40834B91815BFDEC /* register.png */,
+				2F2B3409FABC45F5B89F7445 /* finish.png */,
+				97CD43B06C7445CFA31C98F0 /* forgot_password.png */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -470,6 +476,8 @@
 				2F63B24C1D5C400DB097EDD8 /* illust_1.png in Resources */,
 				E13F5877243C409AAC8E30FC /* login.png in Resources */,
 				1EB5FC9AC3B54CAF8E2BA01F /* register.png in Resources */,
+				76114726418D4512953BE803 /* finish.png in Resources */,
+				EC3E52443C0D48898ED324D7 /* forgot_password.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

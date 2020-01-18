@@ -18,6 +18,7 @@ import Category from '../screens/Category';
 import Cart from '../screens/Cart';
 import Checkout from '../screens/Checkout';
 import Profile from '../screens/Profile';
+import TransactionComplete from '../screens/TransactionComplete';
 
 const SplashNav = createStackNavigator({
     Splash: {
@@ -140,6 +141,12 @@ const CartNav = createStackNavigator({
             headerShown: false,
         },
     },
+    TransactionComplete: {
+        screen: TransactionComplete,
+        navigationOptions: {
+            headerShown: false,
+        },
+    }
 }, {
     initialRouteName: 'Cart',
 })
