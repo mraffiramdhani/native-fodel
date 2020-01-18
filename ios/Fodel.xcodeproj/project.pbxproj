@@ -55,6 +55,9 @@
 		3D8E6DBD1C414BF183D680A5 /* pizza-hut.png in Resources */ = {isa = PBXBuildFile; fileRef = E88948D3BA864C1182EB5040 /* pizza-hut.png */; };
 		2D55B11656314B8FB836A6E1 /* starbucks.jpg in Resources */ = {isa = PBXBuildFile; fileRef = E2EDAD830E7E4FF1AF1328EF /* starbucks.jpg */; };
 		ACF076B4EFEF4F9380A898B5 /* favicon.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FDE990FC89F43D5A977CF5C /* favicon.png */; };
+		2F63B24C1D5C400DB097EDD8 /* illust_1.png in Resources */ = {isa = PBXBuildFile; fileRef = 98274EF61EE549848EC93C9A /* illust_1.png */; };
+		E13F5877243C409AAC8E30FC /* login.png in Resources */ = {isa = PBXBuildFile; fileRef = 50F2448CC4BB4233B276371D /* login.png */; };
+		1EB5FC9AC3B54CAF8E2BA01F /* register.png in Resources */ = {isa = PBXBuildFile; fileRef = 1FF7538A40834B91815BFDEC /* register.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -129,6 +132,9 @@
 		E88948D3BA864C1182EB5040 /* pizza-hut.png */ = {isa = PBXFileReference; name = "pizza-hut.png"; path = "../src/assets/icons/pizza-hut.png"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 		E2EDAD830E7E4FF1AF1328EF /* starbucks.jpg */ = {isa = PBXFileReference; name = "starbucks.jpg"; path = "../src/assets/icons/starbucks.jpg"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 		6FDE990FC89F43D5A977CF5C /* favicon.png */ = {isa = PBXFileReference; name = "favicon.png"; path = "../src/assets/icons/favicon.png"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		98274EF61EE549848EC93C9A /* illust_1.png */ = {isa = PBXFileReference; name = "illust_1.png"; path = "../src/assets/images/illust_1.png"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		50F2448CC4BB4233B276371D /* login.png */ = {isa = PBXFileReference; name = "login.png"; path = "../src/assets/images/login.png"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		1FF7538A40834B91815BFDEC /* register.png */ = {isa = PBXFileReference; name = "register.png"; path = "../src/assets/images/register.png"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -278,6 +284,9 @@
 				E88948D3BA864C1182EB5040 /* pizza-hut.png */,
 				E2EDAD830E7E4FF1AF1328EF /* starbucks.jpg */,
 				6FDE990FC89F43D5A977CF5C /* favicon.png */,
+				98274EF61EE549848EC93C9A /* illust_1.png */,
+				50F2448CC4BB4233B276371D /* login.png */,
+				1FF7538A40834B91815BFDEC /* register.png */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -458,6 +467,9 @@
 				3D8E6DBD1C414BF183D680A5 /* pizza-hut.png in Resources */,
 				2D55B11656314B8FB836A6E1 /* starbucks.jpg in Resources */,
 				ACF076B4EFEF4F9380A898B5 /* favicon.png in Resources */,
+				2F63B24C1D5C400DB097EDD8 /* illust_1.png in Resources */,
+				E13F5877243C409AAC8E30FC /* login.png in Resources */,
+				1EB5FC9AC3B54CAF8E2BA01F /* register.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

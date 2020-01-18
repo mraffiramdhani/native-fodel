@@ -6,6 +6,7 @@ import Counter from 'react-native-counters';
 import Feather from 'react-native-vector-icons/Feather';
 import { connect } from 'react-redux';
 import { getCart } from '../redux/actions/cart';
+import {withNavigation} from 'react-navigation';
 import SliderTitle from '../components/SliderTitle';
 
 const minusIcon = (isMinusDisabled, touchableDisabledColor, touchableColor) => {
@@ -17,7 +18,7 @@ const plusIcon = (isPlusDisabled, touchableDisabledColor, touchableColor) => {
 };
 
 // create a component
-class Cart extends Component {
+class CartOriginal extends Component {
     constructor(props) {
         super(props)
         this.state = {
@@ -26,8 +27,8 @@ class Cart extends Component {
         }
     }
     async componentDidMount() {
-        await this.props.dispatch(getCart())
-        await this.setState({ isLoading: false })
+            await this.props.dispatch(getCart())
+            await this.setState({ isLoading: false })        
     }
     onChange(number, type) {
         if (number === 0) {
@@ -49,6 +50,13 @@ class Cart extends Component {
                 </View>
                 <View style={styles.contentWrapper}>
                     <ScrollView style={{ height: '100%' }} showsVerticalScrollIndicator={false}>
+                        {this.state.isLoading && 
+                            <View style={styles.itemWrapper}>
+                                <View>
+                                    
+                                </View>
+                            </View>
+                        }
                         {!this.state.isLoading && this.props.cart.data.map((v, i) => {
                             var image = `asset:/images/${v.item.image}`
                             return (
@@ -69,9 +77,11 @@ class Cart extends Component {
                         })}
                     </ScrollView>
                 </View>
-                <Button rounded dark block>
+                {!this.state.isLoading && 
+                <Button rounded dark block onPress={() => this.props.navigation.navigate('Checkout')}>
                     <Text>checkout</Text>
                 </Button>
+                }
             </View>
         );
     }
@@ -131,8 +141,11 @@ const styles = StyleSheet.create({
 const mapStateToProps = state => {
     return {
         cart: state.cart,
+        auth: state.auth,
     }
 }
+
+const Cart = withNavigation(CartOriginal)
 
 //make this component available to the app
 export default connect(mapStateToProps)(Cart);

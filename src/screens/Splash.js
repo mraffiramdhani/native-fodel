@@ -2,12 +2,17 @@
 import React, { Component } from 'react';
 import { View, Text, StyleSheet, Image } from 'react-native';
 import { withNavigation } from 'react-navigation';
+import {connect} from 'react-redux';
 
 // create a component
 class SplashOriginal extends Component {
     componentDidMount() {
         setTimeout(() => {
-            this.props.navigation.navigate('Home')
+            if(!this.props.auth.data.token){
+                this.props.navigation.navigate('UserAuthentication')
+            }else{
+                this.props.navigation.navigate('Home')
+            }
         }, 3000)
     }
     render() {
@@ -40,5 +45,11 @@ const styles = StyleSheet.create({
 
 const Splash = withNavigation(SplashOriginal)
 
+const mapStateToProps = state => {
+    return {
+        auth: state.auth,
+    }
+}
+
 //make this component available to the app
-export default Splash;
+export default connect(mapStateToProps)(Splash);

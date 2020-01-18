@@ -1,11 +1,10 @@
 //import liraries
 import React, { Component } from 'react';
 import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
-import {Input} from 'native-base';
 import { withNavigation } from 'react-navigation';
 
 // create a component
-class RegisterOriginal extends Component {
+class UserAuthenticationOriginal extends Component {
     render() {
         return (
             <View style={styles.container}>
@@ -14,27 +13,22 @@ class RegisterOriginal extends Component {
                     <Text style={styles.logoText}>Fodel</Text>
                 </View>
                 <View style={styles.illustWrapper}>
-                    <Image source={require('../assets/images/register.png')} style={styles.illust} />
+                    <Image source={require('../assets/images/illust_1.png')} style={styles.illust} />
                 </View>
                 <View style={styles.prologWrapper}>
-                    <Text style={styles.title}>Register to Fodel!</Text>
+                    <Text style={styles.title}>Welcome to Fodel!</Text>
+                    <Text style={styles.subtitle}>Explore the enjoyment and easiness of ordering food online with Fodel.</Text>
                 </View>
-                <View style={styles.formWrapper}>
-                    <View style={styles.input}>
-                        <Input placeholder="Fullname" />
-                    </View>
-                    <View style={styles.input}>
-                        <Input placeholder="Username" />
-                    </View>
-                    <View style={styles.input}>
-                        <Input placeholder="Password" />
-                    </View>
-                    <TouchableOpacity style={styles.registerButton} onPress={() => this.props.navigation.navigate('Home')}>
+                <View style={styles.buttonWrapper}>
+                    <TouchableOpacity style={styles.loginButton} onPress={() => this.props.navigation.navigate('Login')}>
+                        <Text style={styles.buttonText}>Login</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={styles.registerButton} onPress={() => this.props.navigation.navigate('Register')}>
                         <Text style={styles.buttonText}>Register</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.loginButton} onPress={() => this.props.navigation.navigate('Login')}>
-                        <Text style={[styles.buttonText, {color: 'black'}]}>i have an account</Text>
-                    </TouchableOpacity>
+                </View>
+                <View style={styles.epilogWrapper}>
+                    <Text style={styles.subtitle}>With Signing In or Registering. Your are agreeing the Terms of Services and Privacy Policy.</Text>
                 </View>
             </View>
         );
@@ -69,29 +63,32 @@ const styles = StyleSheet.create({
         alignItems: 'center' 
     },
     illust: {
-        width: 200, 
-        height: 150
+        width: 300, 
+        height: 300
     },
     prologWrapper: {
         flex:0, 
-        flexDirection: 'column',
-        alignItems: 'center',
+        flexDirection: 'column'
     },
     title: {
         fontFamily: 'Nunito-Regular', 
         fontSize: 30
     },
-    formWrapper: {
-        flex:1, 
-        flexDirection: 'column', 
-        marginTop: 20
+    subtitle: {
+        fontFamily: 'Nunito-Regular', 
+        color: '#333'
     },
-    registerButton: {
+    buttonWrapper: {
+        flex:1, 
+        flexDirection: 'row', 
+        alignItems: 'center',
+    },
+    loginButton: {
         backgroundColor: '#333', 
         padding: 20, 
         borderRadius: 12, 
         justifyContent: 'center', 
-        flex:0, 
+        flex:1, 
         flexDirection: 'row', 
         marginTop:10, 
         marginRight: 5
@@ -101,25 +98,25 @@ const styles = StyleSheet.create({
         color: '#fff', 
         textTransform: 'uppercase'
     },
-    loginButton: {
-        backgroundColor: '#eee', 
+    registerButton: {
+        backgroundColor: '#333', 
         padding: 20, 
         borderRadius: 12, 
         justifyContent: 'center', 
-        flex:0, 
+        flex:1, 
         flexDirection: 'row',
         marginTop:10, 
         marginLeft: 5
     },
-    input: {
+    epilogWrapper: { 
         flex:0, 
         flexDirection: 'row', 
-        margin: 5, 
-        borderBottomWidth: 2
+        marginTop: 10, 
+        alignItems: 'flex-end'
     },
 });
 
-const Register = withNavigation(RegisterOriginal)
+const UserAuthentication = withNavigation(UserAuthenticationOriginal)
 
 //make this component available to the app
-export default Register;
+export default UserAuthentication;

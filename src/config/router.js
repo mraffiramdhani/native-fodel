@@ -7,6 +7,7 @@ import { Root } from 'native-base';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import Splash from '../screens/Splash';
+import UserAuthentication from '../screens/UserAuthentication';
 import Home from '../screens/Home';
 import Search from '../screens/Search';
 import Login from '../screens/Login';
@@ -30,6 +31,12 @@ const SplashNav = createStackNavigator({
 })
 
 const AuthNav = createStackNavigator({
+    UserAuthentication: {
+        screen: UserAuthentication,
+        navigationOptions: {
+            headerShown: false,
+        },
+    },
     Login: {
         screen: Login,
         navigationOptions: {
@@ -49,7 +56,7 @@ const AuthNav = createStackNavigator({
         }
     },
 }, {
-    initialRouteName: 'Login',
+    initialRouteName: 'UserAuthentication',
 })
 
 const HomeNav = createStackNavigator({

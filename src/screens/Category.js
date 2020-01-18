@@ -1,6 +1,6 @@
 //import liraries
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, Image } from 'react-native';
+import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
 import SliderTitle from '../components/SliderTitle';
 import { connect } from 'react-redux';
 import { getCategories } from '../redux/actions/category';
@@ -28,12 +28,10 @@ class CategoryOriginal extends Component {
                     {!this.state.isLoading && this.props.category.data.map((v, i) => {
                         var image = `asset:/icons/${v.icon}`
                         return (
-                            <View key={i} style={styles.categoryCard} onStartShouldSetResponder={() => this.props.navigation.navigate('Search')}>
-                                {/* <View style={{ flex: 1, flexDirection: 'column' }}> */}
-                                <Image source={{ uri: image }} style={{ width: 40, height: 40 }} />
-                                <Text style={{ marginTop: 5, fontFamily: 'Nunito-Regular', fontSize: 14 }}>{v.name}</Text>
-                                {/* </View> */}
-                            </View>
+                        <TouchableOpacity style={styles.categoryCard} key={i} onPress={() => this.props.navigation.navigate('Search')}>
+                            <Image source={{ uri: image }} style={{ width: 40, height: 40 }} />
+                            <Text style={{ marginTop: 5, fontFamily: 'Nunito-Regular', fontSize: 14 }}>{v.name}</Text>
+                        </TouchableOpacity>
                         )
                     })}
                 </View>

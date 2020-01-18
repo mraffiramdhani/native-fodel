@@ -1,7 +1,7 @@
 //import liraries
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, Image, TextInput } from 'react-native';
-import { Button } from 'native-base';
+import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
+import {Input} from 'native-base';
 import { withNavigation } from 'react-navigation';
 
 // create a component
@@ -9,28 +9,29 @@ class LoginOriginal extends Component {
     render() {
         return (
             <View style={styles.container}>
-                <View style={styles.logo}>
-                    <Image
-                        source={{ uri: 'asset:/icons/favicon.png' }}
-                        style={styles.logoImage}
-                    />
+                <View style={styles.headerWrapper}>
+                    <Image source={require('../assets/icons/favicon.png')} style={styles.logo} />
                     <Text style={styles.logoText}>Fodel</Text>
                 </View>
-                <View style={styles.formItem}>
-                    <TextInput style={styles.input} placeholder="Username" autoFocus />
+                <View style={styles.illustWrapper}>
+                    <Image source={require('../assets/images/login.png')} style={styles.illust} />
                 </View>
-                <View style={styles.formItem}>
-                    <TextInput style={styles.input} placeholder="Password" />
+                <View style={styles.prologWrapper}>
+                    <Text style={styles.title}>Login to Fodel!</Text>
                 </View>
-                <View style={styles.formItem}>
-                    <Button style={{ justifyContent: 'center' }} rounded dark>
-                        <Text style={styles.loginText}>login</Text>
-                    </Button>
-                </View>
-                <View style={styles.formItem}>
-                    <Button style={{ justifyContent: 'center' }} rounded light onPress={() => this.props.navigation.navigate('Register')}>
-                        <Text style={styles.registerText}>register</Text>
-                    </Button>
+                <View style={styles.formWrapper}>
+                    <View style={styles.input}>
+                        <Input placeholder="Username" />
+                    </View>
+                    <View style={styles.input}>
+                        <Input placeholder="Password" />
+                    </View>
+                    <TouchableOpacity style={styles.loginButton} onPress={() => this.props.navigation.navigate('Home')}>
+                        <Text style={styles.buttonText}>Login</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={styles.registerButton} onPress={() => this.props.navigation.navigate('Register')}>
+                        <Text style={[styles.buttonText, {color: 'black'}]}>Register</Text>
+                    </TouchableOpacity>
                 </View>
             </View>
         );
@@ -41,46 +42,77 @@ class LoginOriginal extends Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        justifyContent: 'center',
+        justifyContent: 'flex-start',
         backgroundColor: '#fff',
         padding: 20,
     },
-    logo: {
-        alignItems: 'center',
-        marginBottom: 20,
+    headerWrapper: {
+        flex:0, 
+        flexDirection: 'row', 
+        alignItems: 'center' 
     },
-    logoImage: {
-        width: 110,
-        height: 110,
+    logo: {
+        width: 30, 
+        height: 30
     },
     logoText: {
-        fontFamily: 'Nunito-Regular',
-        fontSize: 40,
-        color: '#2c7c96',
+        marginLeft: 4, 
+        fontFamily: 'Nunito-Regular'
     },
-    formItem: {
-        marginTop: 5,
-        marginBottom: 5,
+    illustWrapper: {
+        flex:1, 
+        flexDirection: 'column', 
+        justifyContent: 'center', 
+        alignItems: 'center' 
+    },
+    illust: {
+        width: 150, 
+        height: 150
+    },
+    prologWrapper: {
+        flex:0, 
+        flexDirection: 'column',
+        alignItems: 'center',
+    },
+    title: {
+        fontFamily: 'Nunito-Regular', 
+        fontSize: 30
+    },
+    formWrapper: {
+        flex:0, 
+        flexDirection: 'column', 
+        marginTop: 20
+    },
+    loginButton: {
+        backgroundColor: '#333', 
+        padding: 20, 
+        borderRadius: 12, 
+        justifyContent: 'center', 
+        flex:0, 
+        flexDirection: 'row', 
+        marginTop:10, 
+        marginRight: 5
+    },
+    buttonText: {
+        fontFamily: 'Nunito-Regular', 
+        color: '#fff', 
+        textTransform: 'uppercase'
+    },
+    registerButton: {
+        backgroundColor: '#eee', 
+        padding: 20, 
+        borderRadius: 12, 
+        justifyContent: 'center', 
+        flex:0, 
+        flexDirection: 'row',
+        marginTop:10, 
+        marginLeft: 5
     },
     input: {
-        borderWidth: 2,
-        borderRadius: 50,
-        borderColor: '#2c7c96',
-        paddingLeft: 20,
-        fontSize: 22,
-        textAlign: 'center',
-    },
-    loginText: {
-        textTransform: 'uppercase',
-        color: '#fff',
-        fontFamily: 'Nunito-Regular',
-        fontSize: 18,
-    },
-    registerText: {
-        textTransform: 'uppercase',
-        color: '#111',
-        fontFamily: 'Nunito-Regular',
-        fontSize: 18,
+        flex:0, 
+        flexDirection: 'row', 
+        margin: 5, 
+        borderBottomWidth: 2
     },
 });
 

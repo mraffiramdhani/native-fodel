@@ -36,7 +36,7 @@ const styles = StyleSheet.create({
 
     },
     title: { fontFamily: 'Nunito-Regular', fontSize: 20, },
-    viewAll: { fontFamily: 'Nunito-Regular', fontSize: 16, color: '#0D77FF', },
+    viewAll: { fontFamily: 'Nunito-Regular', fontSize: 16, color: '#0DAAFF', },
 });
 
 //make this component available to the app
