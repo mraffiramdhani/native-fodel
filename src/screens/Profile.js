@@ -24,7 +24,6 @@ class Profile extends Component {
                             <View>
                                 <Text style={{ fontFamily: 'Nunito-Regular', fontSize: 25 }}>John Doe</Text>
                                 <Text style={{ fontFamily: 'Nunito-Regular', color: '#333', fontSize: 15 }}>john.doe</Text>
-                                <Text style={{ fontFamily: 'Nunito-Regular', color: '#333' }}>+627876543267</Text>
                             </View>
                             <View>
                                 <Text style={{ fontFamily: 'Nunito-Regular', color: 'green', fontSize: 15 }}>Change</Text>

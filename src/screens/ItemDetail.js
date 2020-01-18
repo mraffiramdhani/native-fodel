@@ -35,22 +35,22 @@ class ItemDetail extends Component {
             <View style={styles.container}>
                 {!this.state.isLoading &&
                     <>
-                        <ImageBackground source={{ uri: `asset:/images/${this.props.item.data.image}` }} style={styles.imageBackground} resizeMethod="auto" resizeMode="cover">
+                        <ImageBackground source={{ uri: `asset:/images/${this.props.item.itemDetail.image}` }} style={styles.imageBackground} resizeMethod="auto" resizeMode="cover">
                             <ButtonBack />
                         </ImageBackground>
                         <View style={styles.infoCard}>
-                            <Text style={styles.name}>{this.props.item.data.name}</Text>
+                            <Text style={styles.name}>{this.props.item.itemDetail.name}</Text>
                             <ScrollView showsVerticalScrollIndicator={false}>
                                 <View style={styles.infoWrapper}>
                                     <View style={styles.ratingWrapper}>
                                         <Icon name="ios-star" size={30} style={styles.star} />
-                                        <Text style={styles.starCount}>{this.props.item.data.rating}</Text>
+                                        <Text style={styles.starCount}>{this.props.item.itemDetail.rating}</Text>
                                     </View>
-                                    <Text style={styles.price}>{this.rupiah(this.props.item.data.price)}</Text>
+                                    <Text style={styles.price}>{this.rupiah(this.props.item.itemDetail.price)}</Text>
                                 </View>
-                                <Text style={styles.description}>{this.props.item.data.description}</Text>
+                                <Text style={styles.description}>{this.props.item.itemDetail.description}</Text>
                                 <View style={styles.categoryWrapper}>
-                                    {this.props.item.data.category.map((v, i) => (
+                                    {this.props.item.itemDetail.category.map((v, i) => (
                                         <Badge style={styles.categories} key={i}>
                                             <Text style={styles.categoryText}>{v.name}</Text>
                                         </Badge>

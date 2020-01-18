@@ -1,7 +1,8 @@
 //import liraries
 import React, { Component } from 'react';
 import { View, StyleSheet, ScrollView } from 'react-native';
-import { Container } from 'native-base';
+import { Container, Toast } from 'native-base';
+import NetInfo from '@react-native-community/netinfo';
 
 // Components
 import Header from '../components/Header';
@@ -13,6 +14,18 @@ import RestaurantList from '../components/RestaurantList';
 
 // create a component
 class Home extends Component {
+    componentDidMount() {
+        NetInfo.fetch().then(state => {
+            if (!state.isConnected) {
+                Toast.show({
+                    text: 'No Internet Connection',
+                    buttonText: 'Okay',
+                    duration: 10000,
+                    position: 'bottom',
+                })
+            }
+        });
+    }
     render() {
         return (
             <Container>

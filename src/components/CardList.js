@@ -45,19 +45,21 @@ class CardListOriginal extends Component {
                             styler.push({ marginRight: 20 })
                         }
                         return (
-                            <View style={styler} key={i}>
-                                <View>
-                                    <Image source={{ uri: img }} style={styles.image} resizeMode="cover" />
-                                </View>
-                                <View style={styles.menuInfo}>
-                                    <Text style={styles.title}>{v.name}</Text>
-                                    <Text style={styles.restaurant}>{v.restaurant}</Text>
-                                    <View style={styles.info}>
-                                        <Text style={styles.startCount}><IonIcon name="ios-star" style={styles.star} size={15} /> {v.rating}</Text>
-                                        <Text style={styles.price}>{this.rupiah(v.price)}</Text>
+                            <TouchableOpacity onPress={() => this.props.navigation.navigate('ItemDetail')} key={i}>
+                                <View style={styler}>
+                                    <View>
+                                        <Image source={{ uri: img }} style={styles.image} resizeMode="cover" />
+                                    </View>
+                                    <View style={styles.menuInfo}>
+                                        <Text style={styles.title}>{v.name}</Text>
+                                        <Text style={styles.restaurant}>{v.restaurant}</Text>
+                                        <View style={styles.info}>
+                                            <Text style={styles.startCount}><IonIcon name="ios-star" style={styles.star} size={15} /> {v.rating}</Text>
+                                            <Text style={styles.price}>{this.rupiah(v.price)}</Text>
+                                        </View>
                                     </View>
                                 </View>
-                            </View>
+                            </TouchableOpacity>
                         )
                     })}
                 </ScrollView>

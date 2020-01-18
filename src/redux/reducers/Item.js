@@ -1,6 +1,7 @@
 const initialState = {
     count: 0,
     data: [],
+    itemDetail: {},
     isLoading: false,
     isError: false,
     isSuccess: true
@@ -38,7 +39,7 @@ const item = (state = initialState, action) => {
         case 'GET_ITEM':
             return {
                 ...state,
-                data: {
+                itemDetail: {
                     name: "Kopi Teman Sejiwa",
                     image: "drink.jpg",
                     restaurant: "Teman Sejiwa",

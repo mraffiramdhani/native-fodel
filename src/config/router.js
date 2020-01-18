@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import { createAppContainer, createSwitchNavigator } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
 import { createBottomTabNavigator } from 'react-navigation-tabs';
+import { Root } from 'native-base';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import Splash from '../screens/Splash';
@@ -218,7 +219,9 @@ const AppContainer = createAppContainer(SwitchNav)
 class Router extends Component {
     render() {
         return (
-            <AppContainer />
+            <Root>
+                <AppContainer />
+            </Root>
         );
     }
 }
