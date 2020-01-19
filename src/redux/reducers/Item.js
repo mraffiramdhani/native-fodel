@@ -9,55 +9,79 @@ const initialState = {
 
 const item = (state = initialState, action) => {
     switch (action.type) {
-        case 'GET_POPULAR_ITEMS':
+        case 'GET_POPULAR_ITEMS_PENDING':
             return {
                 ...state,
-                data: [
-                    { name: "Kopi Teman Sejiwa", image: "drink.jpg", restaurant: "Teman Sejiwa", rating: 4.7, price: 12000 },
-                    { name: "Big Mac", image: "hamburger.jpg", restaurant: "MC Donalds", rating: 4.0, price: 32000 },
-                    { name: "Cheese Bomb", image: "pizza.jpg", restaurant: "Pizza Hut", rating: 4.4, price: 24000 },
-                    { name: "Salad Buah", image: "salad.jpg", restaurant: "Bu Otang", rating: 4.2, price: 14000 },
-                    { name: "Sup Labu", image: "soup.jpg", restaurant: "Bu Otang", rating: 4.7, price: 10000 },
-                ],
+                isLoading: true,
+                isError: false,
+                isSuccess: false,
             }
-        case 'GET_ITEMS':
+        case 'GET_POPULAR_ITEMS_REJECTED':
             return {
                 ...state,
-                data: [
-                    { name: "Kopi Teman Sejiwa", image: "drink.jpg", restaurant: "Teman Sejiwa", rating: 4.7, price: 12000 },
-                    { name: "Big Mac", image: "hamburger.jpg", restaurant: "MC Donalds", rating: 4.0, price: 32000 },
-                    { name: "Cheese Bomb", image: "pizza.jpg", restaurant: "Pizza Hut", rating: 4.4, price: 24000 },
-                    { name: "Salad Buah", image: "salad.jpg", restaurant: "Bu Otang", rating: 4.2, price: 14000 },
-                    { name: "Sup Labu", image: "soup.jpg", restaurant: "Bu Otang", rating: 4.7, price: 10000 },
-                    { name: "Kopi Teman Sejiwa", image: "drink.jpg", restaurant: "Teman Sejiwa", rating: 4.7, price: 12000 },
-                    { name: "Big Mac", image: "hamburger.jpg", restaurant: "MC Donalds", rating: 4.0, price: 32000 },
-                    { name: "Cheese Bomb", image: "pizza.jpg", restaurant: "Pizza Hut", rating: 4.4, price: 24000 },
-                    { name: "Salad Buah", image: "salad.jpg", restaurant: "Bu Otang", rating: 4.2, price: 14000 },
-                    { name: "Sup Labu", image: "soup.jpg", restaurant: "Bu Otang", rating: 4.7, price: 10000 },
-                ],
+                data: [],
+                isLoading: false,
+                isError: true,
+                isSuccess: false,
             }
-        case 'GET_ITEM':
+        case 'GET_POPULAR_ITEMS_FULFILLED':
             return {
                 ...state,
-                itemDetail: {
-                    name: "Kopi Teman Sejiwa",
-                    image: "drink.jpg",
-                    restaurant: "Teman Sejiwa",
-                    description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
-                    rating: 4.7,
-                    price: 12000,
-                    category: [
-                        { name: "Minuman" },
-                        { name: "Kopi" },
-                    ],
-                    suggest: [
-                        { name: "Kopi Teman Sejiwa", image: "drink.jpg", restaurant: "Teman Sejiwa", rating: 4.7, price: 12000 },
-                        { name: "Big Mac", image: "hamburger.jpg", restaurant: "MC Donalds", rating: 4.0, price: 32000 },
-                        { name: "Cheese Bomb", image: "pizza.jpg", restaurant: "Pizza Hut", rating: 4.4, price: 24000 },
-                        { name: "Salad Buah", image: "salad.jpg", restaurant: "Bu Otang", rating: 4.2, price: 14000 },
-                        { name: "Sup Labu", image: "soup.jpg", restaurant: "Bu Otang", rating: 4.7, price: 10000 },
-                    ],
-                },
+                count: action.payload.data.data.count,
+                data: action.payload.data.data,
+                isLoading: false,
+                isError: false,
+                isSuccess: action.payload.data.success,
+            }
+
+        case 'GET_ITEMS_PENDING':
+            return {
+                ...state,
+                isLoading: true,
+                isError: false,
+                isSuccess: false,
+            }
+        case 'GET_ITEMS_REJECTED':
+            return {
+                ...state,
+                data: [],
+                isLoading: false,
+                isError: true,
+                isSuccess: false,
+            }
+        case 'GET_ITEMS_FULFILLED':
+            return {
+                ...state,
+                count: action.payload.data.data.count,
+                data: action.payload.data.data,
+                isLoading: false,
+                isError: false,
+                isSuccess: action.payload.data.success,
+            }
+
+        case 'GET_ITEM_PENDING':
+            return {
+                ...state,
+                isLoading: true,
+                isError: false,
+                isSuccess: false,
+            }
+        case 'GET_ITEM_REJECTED':
+            return {
+                ...state,
+                data: [],
+                itemDetail: {},
+                isLoading: false,
+                isError: true,
+                isSuccess: false,
+            }
+        case 'GET_ITEM_FULFILLED':
+            return {
+                ...state,
+                itemDetail: action.payload.data.data,
+                isLoading: false,
+                isError: false,
+                isSuccess: action.payload.data.success,
             }
         default:
             return state

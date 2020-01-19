@@ -1,6 +1,6 @@
 //import liraries
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, Image } from 'react-native';
+import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
 import { Button } from 'native-base';
 import { Header as Head } from 'native-base';
 import { connect } from 'react-redux';
@@ -13,12 +13,12 @@ class HeaderOriginal extends Component {
                 {this.props.auth.data &&
                     <View style={styles.headWrapper}>
                         <View style={styles.nameWrapper}>
-                            <Text style={styles.name}>John Doe</Text>
+                            <Text style={styles.name}>{this.props.auth.data.name}</Text>
                             <Text style={styles.title}>Customer</Text>
                         </View>
-                        <View style={styles.imageWrapper}>
+                        <TouchableOpacity style={styles.imageWrapper} onPress={() => this.props.navigation.navigate('Profile')}>
                             <Image source={require('../assets/images/default.png')} style={styles.image} />
-                        </View>
+                        </TouchableOpacity>
                     </View>
                 }
             </Head>
@@ -32,7 +32,7 @@ const styles = StyleSheet.create({
     head: { height: 100, backgroundColor: '#fff', elevation: 0, },
     headWrapper: { flex: 1, flexDirection: 'row', padding: 20, alignItems: 'center', justifyContent: 'space-between' },
     nameWrapper: { flex: 1, flexDirection: 'column' },
-    name: { fontFamily: 'Nunito-Regular', fontSize: 30 },
+    name: { fontFamily: 'Nunito-Regular', fontSize: 18 },
     title: { fontFamily: 'Nunito-Regular', },
     imageWrapper: { flex: 1, justifyContent: 'center', alignItems: 'flex-end' },
     image: { width: 40, height: 40 },

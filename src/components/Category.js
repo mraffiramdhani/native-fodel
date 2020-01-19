@@ -1,11 +1,12 @@
 //import liraries
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, ScrollView, Image } from 'react-native';
+import { View, Text, StyleSheet, ScrollView, Image, TouchableOpacity } from 'react-native';
+import {withNavigation} from 'react-navigation';
 import { connect } from 'react-redux';
 import { getCategories } from '../redux/actions/category';
 
 // create a component
-class Category extends Component {
+class CategoryOriginal extends Component {
     constructor(props) {
         super(props)
         this.state = {
@@ -47,22 +48,22 @@ class Category extends Component {
                             </View>
                         </>
                     }
-                    {!this.state.isLoading && this.props.category.data.map((v, i) => {
-                        var img = `asset:/icons/${v.icon}`;
+                    {!this.state.isLoading && this.props.category.data.categories.map((v, i) => {
+                        // var img = `asset:/icons/${v.icon}`;
                         var styler = [styles.card]
                         if (i === 0) {
                             styler.push({ marginLeft: 20 })
                         }
-                        if (i === this.props.category.data.length - 1) {
+                        if (i === this.props.category.data.categories.length - 1) {
                             styler.push({ marginRight: 20 })
                         }
                         return (
-                            <View style={styler} key={i}>
+                            <TouchableOpacity style={styler} key={i} onPress={() => this.props.navigation.navigate('Search', {search: [{name:"category", value: v.id}]})}>
                                 <View style={styles.cardWrapper}>
-                                    <Image style={{ width: 50, height: 50 }} source={{ uri: img }} />
+                                    { /*<Image style={{ width: 50, height: 50 }} source={{ uri: img }} /> */}
                                     <Text style={styles.title}>{v.name}</Text>
                                 </View>
-                            </View>
+                            </TouchableOpacity>
                         )
                     })}
                 </ScrollView>
@@ -88,6 +89,8 @@ const mapStateToProps = state => {
         category: state.category,
     }
 }
+
+const Category = withNavigation(CategoryOriginal)
 
 //make this component available to the app
 export default connect(mapStateToProps)(Category);

@@ -4,15 +4,13 @@ import { View, StyleSheet, ImageBackground, ScrollView } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { Button, Text, Badge } from 'native-base';
 import { connect } from 'react-redux';
-import {APP_URL} from '../config/config';
 import { getItem } from '../redux/actions/item';
-import formatRupiah from '../helper/formatRupiah';
 
 // component
 import ButtonBack from '../components/BackButton';
 
 // create a component
-class ItemDetail extends Component {
+class RestaurantDetail extends Component {
     constructor(props) {
         super(props)
         this.state = {
@@ -21,8 +19,15 @@ class ItemDetail extends Component {
     }
 
     async componentDidMount() {
-        await this.props.dispatch(getItem(this.props.navigation.getParam('itemId')))
+        await this.props.dispatch(getItem())
         await this.setState({ isLoading: false })
+    }
+
+    rupiah(angka) {
+        var rupiah = '';
+        var angkarev = angka.toString().split('').reverse().join('');
+        for (var i = 0; i < angkarev.length; i++) if (i % 3 === 0) rupiah += angkarev.substr(i, 3) + '.';
+        return 'Rp.' + rupiah.split('', rupiah.length - 1).reverse().join('');
     }
 
     render() {
@@ -30,15 +35,9 @@ class ItemDetail extends Component {
             <View style={styles.container}>
                 {!this.state.isLoading &&
                     <>
-                        {this.props.item.itemDetail.images.length ?
-                            <ImageBackground source={{ uri: `asset:/images/${this.props.item.itemDetail.image}` }} style={styles.imageBackground} resizeMethod="auto" resizeMode="cover">
-                                <ButtonBack />
-                            </ImageBackground>
-                            :
-                            <View style={styles.imageBackground}>
-                                <ButtonBack />
-                            </View>
-                        }
+                        <ImageBackground source={{ uri: `asset:/images/${this.props.item.itemDetail.image}` }} style={styles.imageBackground} resizeMethod="auto" resizeMode="cover">
+                            <ButtonBack />
+                        </ImageBackground>
                         <View style={styles.infoCard}>
                             <Text style={styles.name}>{this.props.item.itemDetail.name}</Text>
                             <ScrollView showsVerticalScrollIndicator={false}>
@@ -47,11 +46,11 @@ class ItemDetail extends Component {
                                         <Icon name="ios-star" size={30} style={styles.star} />
                                         <Text style={styles.starCount}>{this.props.item.itemDetail.rating}</Text>
                                     </View>
-                                    <Text style={styles.price}>{formatRupiah(this.props.item.itemDetail.price, 'Rp.')}</Text>
+                                    <Text style={styles.price}>{this.rupiah(this.props.item.itemDetail.price)}</Text>
                                 </View>
                                 <Text style={styles.description}>{this.props.item.itemDetail.description}</Text>
                                 <View style={styles.categoryWrapper}>
-                                    {this.props.item.itemDetail.categories.map((v, i) => (
+                                    {this.props.item.itemDetail.category.map((v, i) => (
                                         <Badge style={styles.categories} key={i}>
                                             <Text style={styles.categoryText}>{v.name}</Text>
                                         </Badge>
@@ -149,4 +148,4 @@ const mapStateToProps = state => {
 }
 
 //make this component available to the app
-export default connect(mapStateToProps)(ItemDetail);
+export default connect(mapStateToProps)(RestaurantDetail);

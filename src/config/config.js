@@ -3,11 +3,11 @@ import storage from '../redux/store';
 
 const {store} = storage()
 
-export const APP_URL = "http://localhost:4040"
+export const APP_URL = "http://192.168.0.117:4040"
 
 export const Get = (url, contentType = 'application/json') => {
     return new Promise((resolve, reject) => {
-        axios.defaults.headers.Authorization = `Bearer ${localStorage.getItem('token')}`
+        axios.defaults.headers.Authorization = `Bearer ${store.getState().auth.data.token}`
         axios({
             method: 'get',
             baseURL: APP_URL,
@@ -16,7 +16,7 @@ export const Get = (url, contentType = 'application/json') => {
                 common: {
                     'Content-Type': contentType
                 },
-                Authorization: `Bearer ${localStorage.getItem('token')}`
+                Authorization: `Bearer ${store.getState().auth.data.token}`
             },
             responseType: 'json'
         })
@@ -31,7 +31,7 @@ export const Get = (url, contentType = 'application/json') => {
 
 export const Post = (url, body, contentType = 'application/json') => {
     return new Promise((resolve, reject) => {
-        axios.defaults.headers.Authorization = `Bearer ${localStorage.getItem('token')}`
+        axios.defaults.headers.Authorization = `Bearer ${store.getState().auth.data.token}`
         axios({
             method: 'post',
             baseURL: APP_URL,
@@ -40,7 +40,7 @@ export const Post = (url, body, contentType = 'application/json') => {
                 common: {
                     'Content-Type': contentType
                 },
-                Authorization: `Bearer ${localStorage.getItem('token')}`
+                Authorization: `Bearer ${store.getState().auth.data.token}`
             },
             data: body
         })
@@ -55,7 +55,7 @@ export const Post = (url, body, contentType = 'application/json') => {
 
 export const Patch = (url, body, contentType = 'application/json') => {
     return new Promise((resolve, reject) => {
-        axios.defaults.headers.Authorization = `Bearer ${localStorage.getItem('token')}`
+        axios.defaults.headers.Authorization = `Bearer ${store.getState().auth.data.token}`
         axios({
             method: 'patch',
             baseURL: APP_URL,
@@ -64,7 +64,7 @@ export const Patch = (url, body, contentType = 'application/json') => {
                 common: {
                     'Content-Type': contentType
                 },
-                Authorization: `Bearer ${localStorage.getItem('token')}`
+                Authorization: `Bearer ${store.getState().auth.data.token}`
             },
             data: body
         })
@@ -79,7 +79,7 @@ export const Patch = (url, body, contentType = 'application/json') => {
 
 export const Delete = (url, body, contentType = 'application/json') => {
     return new Promise((resolve, reject) => {
-        axios.defaults.headers.Authorization = `Bearer ${localStorage.getItem('token')}`
+        axios.defaults.headers.Authorization = `Bearer ${store.getState().auth.data.token}`
         axios({
             method: 'delete',
             baseURL: APP_URL,
@@ -88,7 +88,7 @@ export const Delete = (url, body, contentType = 'application/json') => {
                 common: {
                     'Content-Type': contentType
                 },
-                Authorization: `Bearer ${localStorage.getItem('token')}`
+                Authorization: `Bearer ${store.getState().auth.data.token}`
             },
             data: body
         })

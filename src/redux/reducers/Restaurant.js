@@ -8,15 +8,30 @@ const initialState = {
 
 const restaurant = (state = initialState, action) => {
     switch (action.type) {
-        case 'GET_RESTAURANTS':
+        case 'GET_RESTAURANTS_PENDING':
             return {
                 ...state,
-                data: [
-                    { name: "Starbucks", icon: "starbucks.jpg" },
-                    { name: "Mc Donalds", icon: "mcd.jpg" },
-                    { name: "Pizza Hut", icon: "pizza-hut.png" },
-                    { name: "Bu Otang", icon: "chef.jpg" },
-                ]
+                data: [],
+                isLoading: true,
+                isError: false,
+                isSuccess: false,
+            }
+        case 'GET_RESTAURANTS_REJECTED':
+            return {
+                ...state,
+                data: [],
+                isLoading: false,
+                isError: true,
+                isSuccess: false,
+            }
+        case 'GET_RESTAURANTS_FULFILLED':
+            return {
+                ...state,
+                count: action.payload.data.data.restaurants.length,
+                data: action.payload.data.data,
+                isLoading: false,
+                isError: false,
+                isSuccess: action.payload.data.success,
             }
         default:
             return state

@@ -1,26 +1,58 @@
 //import liraries
 import React, { Component } from 'react';
-import { View, StyleSheet, ScrollView, Text, Image } from 'react-native';
+import { View, StyleSheet, ScrollView, Text, Image, TouchableOpacity } from 'react-native';
 import { Input, Container } from 'native-base';
 import { withNavigation } from 'react-navigation';
 import { connect } from 'react-redux';
 import { getItems } from '../redux/actions/item';
+import {APP_URL} from '../config/config';
 import IonIcon from 'react-native-vector-icons/Ionicons';
+import formatRupiah from '../helper/formatRupiah';
 
 //Component
 import BackButton from '../components/BackButton';
 
 // create a component
 class SearchOriginal extends Component {
-    componentDidMount() {
-        this.props.dispatch(getItems())
+    constructor(props){
+        super(props)
+        this.state = {
+            searchDidMount: '',
+            searchValue: '',
+            isLoading: true,
+            isSuccess: false,
+        }
     }
 
-    rupiah(angka) {
-        var rupiah = '';
-        var angkarev = angka.toString().split('').reverse().join('');
-        for (var i = 0; i < angkarev.length; i++) if (i % 3 === 0) rupiah += angkarev.substr(i, 3) + '.';
-        return 'Rp.' + rupiah.split('', rupiah.length - 1).reverse().join('');
+    async componentDidMount() {
+        const searchParam = this.props.navigation.getParam('search')
+        if(searchParam){
+            var search = []
+            var params = ""
+            searchParam.map((v,i) => {
+                search.push(`search[${v.name}]=${v.value}`)
+            })
+            params = search.join('&')
+            await this.setState({searchDidMount: params})
+            await this.props.dispatch(getItems(params))
+        }else{
+            await this.props.dispatch(getItems())
+        }
+        await this.setState({isLoading: false})
+    }
+
+    async componentDidUpdate(prevProps, prevState){
+        if(prevState.searchValue !== this.state.searchValue){
+            if(this.state.searchValue.length >= 3){
+                await this.setState({isLoading: true})
+                await this.props.dispatch(getItems(this.state.searchDidMount + `&search[name]=${this.state.searchValue}`))
+                await this.setState({isLoading: false})
+            }else if(this.state.searchValue.length === 0){
+                await this.setState({isLoading: true})
+                await this.props.dispatch(getItems(this.state.searchDidMount))
+                await this.setState({isLoading: false})
+            }
+        }
     }
 
     render() {
@@ -30,27 +62,34 @@ class SearchOriginal extends Component {
                     <BackButton />
                     <View style={styles.searchWrapper}>
                         <IonIcon name="ios-search" style={styles.searchIcon} />
-                        <Input style={styles.searchInput} placeholder="Feelin' hungry today?" />
+                        <Input style={styles.searchInput} placeholder="Feelin' hungry today?" value={this.state.searchValue} onChange={(e) => this.setState({searchValue: e.nativeEvent.text})} />
                     </View>
                 </View>
                 <ScrollView showsVerticalScrollIndicator={false}>
 
-                    {this.props.item.data && this.props.item.data.map((v, i) => {
-                        var img = `asset:/images/${v.image}`
+                    {!this.state.isLoading && this.props.item.data.items.map((v, i) => {
+                        var img = <View style={[styles.image,{backgroundColor: '#bbb'}]}><Text>No Image</Text></View>
+                        if(v.images.length !== 0){
+                            if(v.images[0].filename.substr(0, 4) === 'http'){
+                                img = <Image source={{ uri: v.images.filename }} style={styles.image} resizeMode="cover" />
+                            }else{
+                                img = <Image source={{ uri: APP_URL.concat('/images/' + v.images[0].filename) }} style={styles.image} resizeMode="cover" />
+                            }
+                        }
                         return (
-                            <View style={styles.itemWrapper} key={i}>
+                            <TouchableOpacity style={styles.itemWrapper} key={i} onPress={() => this.props.navigation.navigate('ItemDetail',{itemId: v.id})}>
                                 <View>
-                                    <Image source={{ uri: img }} style={styles.image} resizeMode="cover" />
+                                    {img}
                                 </View>
                                 <View style={styles.itemInfo}>
                                     <Text style={styles.itemName}>{v.name}</Text>
                                     <Text style={styles.itemRestaurant}>{v.restaurant}</Text>
                                     <View style={styles.info}>
                                         <Text style={styles.startCount}><IonIcon name="ios-star" style={styles.star} size={18} /> {v.rating}</Text>
-                                        <Text style={styles.price}>{this.rupiah(v.price)}</Text>
+                                        <Text style={styles.price}>{formatRupiah(v.price, 'Rp.')}</Text>
                                     </View>
                                 </View>
-                            </View>
+                            </TouchableOpacity>
                         )
                     })}
                 </ScrollView>
@@ -109,6 +148,8 @@ const styles = StyleSheet.create({
         height: 80,
         borderTopLeftRadius: 10,
         borderBottomLeftRadius: 10,
+        justifyContent: 'center',
+        alignItems: 'center',
     },
     searchIcon: {
         fontSize: 25,

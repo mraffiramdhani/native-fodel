@@ -2,15 +2,15 @@
 import React, { Component } from 'react';
 import { View, Text, StyleSheet, Image } from 'react-native';
 import { withNavigation } from 'react-navigation';
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 
 // create a component
 class SplashOriginal extends Component {
     componentDidMount() {
         setTimeout(() => {
-            if(!this.props.auth.data.token){
+            if (!this.props.auth.data.token) {
                 this.props.navigation.navigate('UserAuthentication')
-            }else{
+            } else {
                 this.props.navigation.navigate('Home')
             }
         }, 3000)

@@ -8,15 +8,29 @@ const initialState = {
 
 const category = (state = initialState, action) => {
     switch (action.type) {
-        case 'GET_CATEGORIES':
+        case 'GET_CATEGORIES_PENDING':
             return {
                 ...state,
-                data: [
-                    { name: 'Drink', icon: 'drink.png' },
-                    { name: 'Hamburger', icon: 'hamburger.png' },
-                    { name: 'Salad', icon: 'salad.png' },
-                    { name: 'Soup', icon: 'soup.png' },
-                ],
+                isLoading: true,
+                isError: false,
+                isSuccess: false,
+            }
+        case 'GET_CATEGORIES_REJECTED':
+            return {
+                ...state,
+                data: [],
+                isLoading: false,
+                isError: true,
+                isSuccess: false,
+            }
+        case 'GET_CATEGORIES_FULFILLED':
+            return {
+                ...state,
+                count: action.payload.data.data.categories.length,
+                data: action.payload.data.data,
+                isLoading: false,
+                isError: false,
+                isSuccess: action.payload.data.success,
             }
         default:
             return state

@@ -25,12 +25,12 @@ class CategoryOriginal extends Component {
                     <SliderTitle title="Categories" />
                 </View>
                 <View style={styles.contentWrapper}>
-                    {!this.state.isLoading && this.props.category.data.map((v, i) => {
+                    {!this.state.isLoading && this.props.category.data.categories.map((v, i) => {
                         var image = `asset:/icons/${v.icon}`
                         return (
-                        <TouchableOpacity style={styles.categoryCard} key={i} onPress={() => this.props.navigation.navigate('Search')}>
+                        <TouchableOpacity style={styles.categoryCard} key={i} onPress={() => this.props.navigation.navigate('Search', {search: [{name:"category", value: v.id}]})}>
                             <Image source={{ uri: image }} style={{ width: 40, height: 40 }} />
-                            <Text style={{ marginTop: 5, fontFamily: 'Nunito-Regular', fontSize: 14 }}>{v.name}</Text>
+                            <Text style={{ marginTop: 5, fontFamily: 'Nunito-Regular', fontSize: 14, textAlign: 'center' }}>{v.name}</Text>
                         </TouchableOpacity>
                         )
                     })}

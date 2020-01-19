@@ -19,6 +19,9 @@ import Cart from '../screens/Cart';
 import Checkout from '../screens/Checkout';
 import Profile from '../screens/Profile';
 import TransactionComplete from '../screens/TransactionComplete';
+import ProfileSetting from '../screens/ProfileSetting';
+import OrderHistory from '../screens/OrderHistory';
+import RestaurantDetail from '../screens/RestaurantDetail';
 
 const SplashNav = createStackNavigator({
     Splash: {
@@ -79,6 +82,12 @@ const HomeNav = createStackNavigator({
             headerShown: false,
         },
     },
+    RestaurantDetail: {
+        screen: RestaurantDetail,
+        navigationOptions: {
+            headerShown: false,
+        },
+    },
 }, {
     initialRouteName: 'Home',
 })
@@ -109,6 +118,12 @@ const CategoryNav = createStackNavigator({
     },
     ItemDetail: {
         screen: ItemDetail,
+        navigationOptions: {
+            headerShown: false,
+        },
+    },
+    RestaurantDetail: {
+        screen: RestaurantDetail,
         navigationOptions: {
             headerShown: false,
         },
@@ -169,9 +184,32 @@ const ProfileNav = createStackNavigator({
             headerShown: false,
         },
     },
+    ProfileSetting: {
+        screen: ProfileSetting,
+        navigationOptions: {
+            headerShown: false,
+        },  
+    },
+    OrderHistory: {
+        screen: OrderHistory,
+        navigationOptions: {
+            headerShown: false,
+        },  
+    },
 }, {
     initialRouteName: 'Profile',
 })
+
+ProfileNav.navigationOptions = ({ navigation }) => {
+    let tabBarVisible = true;
+    if (navigation.state.index > 0) {
+        tabBarVisible = false;
+    }
+
+    return {
+        tabBarVisible,
+    }
+}
 
 const BottomNav = createBottomTabNavigator({
     Menu: {

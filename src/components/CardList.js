@@ -5,6 +5,8 @@ import IonIcon from 'react-native-vector-icons/Ionicons';
 import { withNavigation } from 'react-navigation';
 import { connect } from 'react-redux';
 import { getPopularItems } from '../redux/actions/item';
+import {APP_URL} from '../config/config';
+import formatRupiah from '../helper/formatRupiah';
 
 
 // create a component
@@ -21,13 +23,6 @@ class CardListOriginal extends Component {
         await this.setState({ isLoading: false })
     }
 
-    rupiah(angka) {
-        var rupiah = '';
-        var angkarev = angka.toString().split('').reverse().join('');
-        for (var i = 0; i < angkarev.length; i++) if (i % 3 === 0) rupiah += angkarev.substr(i, 3) + '.';
-        return 'Rp.' + rupiah.split('', rupiah.length - 1).reverse().join('');
-    }
-
     render() {
         return (
             <View style={styles.container}>
@@ -35,8 +30,15 @@ class CardListOriginal extends Component {
                     horizontal
                     showsHorizontalScrollIndicator={false}
                 >
-                    {!this.state.isLoading && this.props.item.data.map((v, i) => {
-                        var img = `asset:/images/${v.image}`
+                    {!this.state.isLoading && this.props.item.data.items.map((v, i) => {
+                        var img = <View style={[styles.image,{backgroundColor: '#bbb'}]}><Text>No Image</Text></View>
+                        if(v.images.length !== 0){
+                            if(v.images[0].filename.substr(0, 4) === 'http'){
+                                img = <Image source={{ uri: v.images.filename }} style={styles.image} resizeMode="cover" />
+                            }else{
+                                img = <Image source={{ uri: APP_URL.concat('/images/' + v.images[0].filename) }} style={styles.image} resizeMode="cover" />
+                            }
+                        }
                         var styler = [styles.menuWrapper]
                         if (i === 0) {
                             styler.push({ marginLeft: 20 })
@@ -45,17 +47,17 @@ class CardListOriginal extends Component {
                             styler.push({ marginRight: 20 })
                         }
                         return (
-                            <TouchableOpacity onPress={() => this.props.navigation.navigate('ItemDetail')} key={i}>
+                            <TouchableOpacity onPress={() => this.props.navigation.navigate('ItemDetail', {itemId: v.id})} key={i}>
                                 <View style={styler}>
                                     <View>
-                                        <Image source={{ uri: img }} style={styles.image} resizeMode="cover" />
+                                        {img}
                                     </View>
                                     <View style={styles.menuInfo}>
                                         <Text style={styles.title}>{v.name}</Text>
                                         <Text style={styles.restaurant}>{v.restaurant}</Text>
                                         <View style={styles.info}>
                                             <Text style={styles.startCount}><IonIcon name="ios-star" style={styles.star} size={15} /> {v.rating}</Text>
-                                            <Text style={styles.price}>{this.rupiah(v.price)}</Text>
+                                            <Text style={styles.price}>{formatRupiah(v.price, 'Rp.')}</Text>
                                         </View>
                                     </View>
                                 </View>
@@ -75,7 +77,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
     },
     menuWrapper: { flex: 1, flexDirection: 'column', margin: 10 },
-    image: { width: 200, height: 120, borderRadius: 15 },
+    image: { width: 200, height: 120, borderRadius: 15, justifyContent: 'center', alignItems: 'center'  },
     menuInfo: { flex: 1, flexDirection: 'column', margin: 10, },
     restaurant: { fontFamily: 'Nunito-Regular', color: '#444', fontSize: 12 },
     title: { fontFamily: 'Nunito-Regular', fontSize: 16 },

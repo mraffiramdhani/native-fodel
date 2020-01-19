@@ -1,15 +1,18 @@
 //import liraries
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, ScrollView, Image } from 'react-native';
+import { View, Text, StyleSheet, ScrollView, Image, TouchableOpacity } from 'react-native';
 import { connect } from 'react-redux';
 import { getRestaurants } from '../redux/actions/restaurant';
+import {withNavigation} from 'react-navigation';
+import {APP_URL} from '../config/config';
 
 // create a component
-class RestaurantList extends Component {
+class RestaurantListOriginal extends Component {
     constructor(props) {
         super(props)
         this.state = {
-
+            isLoading: true,
+            isSuccess: false,
         }
     }
 
@@ -19,6 +22,7 @@ class RestaurantList extends Component {
             isLoading: false,
         })
     }
+
     render() {
         return (
             <View style={styles.container}>
@@ -26,22 +30,30 @@ class RestaurantList extends Component {
                     horizontal
                     showsHorizontalScrollIndicator={false}
                 >
-                    {!this.state.isLoading && this.props.restaurant.data.map((v, i) => {
-                        var img = `asset:/icons/${v.icon}`
+                    {!this.state.isLoading && this.props.restaurant.data.restaurants.map((v, i) => {
+                        // var img = <Image style={{ width: 50, height: 50, borderRadius: 50, }} source={{ uri: img }} />
+                        var img = <View style={{ width: 50, height: 50, borderRadius: 50, backgroundColor: '#222' }}><Text>No Image</Text></View>
+                        if(v.logo !== ''){
+                            if(v.logo.substr(0, 4) === 'http'){
+                                img = <Image source={{ uri: v.logo }} style={{ width: 50, height: 50, borderRadius: 50, }} resizeMode="cover" />
+                            }else{
+                                img = <Image source={{ uri: APP_URL.concat('/logos/' + v.logo) }} style={{ width: 50, height: 50, borderRadius: 50, }} resizeMode="cover" />
+                            }
+                        }
                         var styled = [styles.card]
                         if (i === 0) {
                             styled.push({ marginLeft: 20 })
                         }
-                        if (i === this.props.restaurant.data.length - 1) {
+                        if (i === this.props.restaurant.data.restaurants.length - 1) {
                             styled.push({ merginRight: 20 })
                         }
                         return (
-                            < View style={styled} key={i}>
+                            <TouchableOpacity style={styled} key={i} onPress={() => this.props.navigation.navigate('RestaurantDetail')}>
                                 <View style={styles.cardWrapper}>
-                                    <Image style={{ width: 50, height: 50, borderRadius: 50, }} source={{ uri: img }} />
+                                    {img}
                                     <Text style={styles.title}>{v.name}</Text>
                                 </View>
-                            </View>
+                            </TouchableOpacity>
                         )
                     })}
                 </ScrollView>
@@ -67,6 +79,8 @@ const mapStateToProps = state => {
         restaurant: state.restaurant
     }
 }
+
+const RestaurantList = withNavigation(RestaurantListOriginal)
 
 //make this component available to the app
 export default connect(mapStateToProps)(RestaurantList);
