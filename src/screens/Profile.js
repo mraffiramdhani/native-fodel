@@ -19,7 +19,10 @@ class ProfileOriginal extends Component {
     }
 
     async handleLogout(){
-        await this.props.dispatch(logout())
+        const jwt = await this.props.auth.data.token
+        if(jwt !== null){
+            await this.props.dispatch(logout(jwt))
+        }
     }
 
     async componentDidUpdate(prevProps) {

@@ -14,7 +14,7 @@ import RestaurantList from '../components/RestaurantList';
 
 // create a component
 class Home extends Component {
-    componentDidMount() {
+    async componentDidMount() {
         NetInfo.fetch().then(state => {
             if (!state.isConnected) {
                 Toast.show({

@@ -1,13 +1,14 @@
 //import liraries
 import React, { Component } from 'react';
-import { View, StyleSheet, ScrollView, Image } from 'react-native';
+import { View, StyleSheet, ScrollView, Image, ActivityIndicator } from 'react-native';
 import { Button, Text } from 'native-base';
 import Counter from 'react-native-counters';
 import Feather from 'react-native-vector-icons/Feather';
 import { connect } from 'react-redux';
 import { getCart } from '../redux/actions/cart';
-import {withNavigation} from 'react-navigation';
+import { withNavigation } from 'react-navigation';
 import SliderTitle from '../components/SliderTitle';
+import formatRupiah from '../helper/formatRupiah';
 
 const minusIcon = (isMinusDisabled, touchableDisabledColor, touchableColor) => {
     return <Feather name='minus' size={15} color={isMinusDisabled ? touchableDisabledColor : touchableColor} />
@@ -27,20 +28,17 @@ class CartOriginal extends Component {
         }
     }
     async componentDidMount() {
-            await this.props.dispatch(getCart())
-            await this.setState({ isLoading: false })        
+        const jwt = await this.props.auth.data.token
+        if (jwt !== null) {
+            await this.props.dispatch(getCart(jwt))
+            await this.setState({ isLoading: false })
+        }
     }
     onChange(number, type) {
         if (number === 0) {
             alert('Delete Item?')
         }
         this.setState({ quantity: number })
-    }
-    rupiah(angka) {
-        var rupiah = '';
-        var angkarev = angka.toString().split('').reverse().join('');
-        for (var i = 0; i < angkarev.length; i++) if (i % 3 === 0) rupiah += angkarev.substr(i, 3) + '.';
-        return 'Rp.' + rupiah.split('', rupiah.length - 1).reverse().join('');
     }
     render() {
         return (
@@ -50,37 +48,38 @@ class CartOriginal extends Component {
                 </View>
                 <View style={styles.contentWrapper}>
                     <ScrollView style={{ height: '100%' }} showsVerticalScrollIndicator={false}>
-                        {this.state.isLoading && 
-                            <View style={styles.itemWrapper}>
-                                <View>
-                                    
-                                </View>
+                        {this.state.isLoading &&
+                            <View style={{ flex: 1, flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
+                                <ActivityIndicator size="large" color="#0000ff" />
                             </View>
                         }
-                        {!this.state.isLoading && this.props.cart.data.map((v, i) => {
-                            var image = `asset:/images/${v.item.image}`
-                            return (
-                                <View style={styles.itemWrapper} key={i}>
-                                    <View>
-                                        <Image source={{ uri: image }} style={styles.image} resizeMethod="auto" resizeMode="cover" />
-                                    </View>
-                                    <View style={styles.itemInfo}>
-                                        <Text style={styles.itemName}>{v.item.name}</Text>
-                                        <Text style={styles.itemRestaurant}>{v.item.restaurant}</Text>
-                                        <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'flex-end' }}>
-                                            <Feather size={15} name="trash-2" size={25} style={{ color: 'red' }} />
-                                            <Counter start={v.quantity} minusIcon={minusIcon} plusIcon={plusIcon} onChange={this.onChange.bind(this)} />
+                        {!this.state.isLoading && this.props.cart.data.length !== 0 ?
+                            this.props.cart.data.map((v, i) => {
+                                var image = `asset:/images/${v.item.image}`
+                                return (
+                                    <View style={styles.itemWrapper} key={i}>
+                                        <View>
+                                            <Image source={{ uri: image }} style={styles.image} resizeMethod="auto" resizeMode="cover" />
+                                        </View>
+                                        <View style={styles.itemInfo}>
+                                            <Text style={styles.itemName}>{v.item.name}</Text>
+                                            <Text style={styles.itemRestaurant}>{v.item.restaurant}</Text>
+                                            <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'flex-end' }}>
+                                                <Feather size={15} name="trash-2" size={25} style={{ color: 'red' }} />
+                                                <Counter start={v.quantity} minusIcon={minusIcon} plusIcon={plusIcon} onChange={this.onChange.bind(this)} />
+                                            </View>
                                         </View>
                                     </View>
-                                </View>
-                            )
-                        })}
+                                )
+                            })
+                            : <View style={styles.itemWrapper, { justifyContent: 'center', alignItems: 'center' }}><Text>Cart is empty. Let's Go Food Hunting!</Text></View>
+                        }
                     </ScrollView>
                 </View>
-                {!this.state.isLoading && 
-                <Button rounded dark block onPress={() => this.props.navigation.navigate('Checkout')}>
-                    <Text>checkout</Text>
-                </Button>
+                {!this.state.isLoading && this.props.cart.data.length !== 0 &&
+                    <Button rounded dark block onPress={() => this.props.navigation.navigate('Checkout')}>
+                        <Text>checkout</Text>
+                    </Button>
                 }
             </View>
         );
