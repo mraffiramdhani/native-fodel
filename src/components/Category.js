@@ -4,6 +4,7 @@ import { View, Text, StyleSheet, ScrollView, Image, TouchableOpacity } from 'rea
 import {withNavigation} from 'react-navigation';
 import { connect } from 'react-redux';
 import { getCategories } from '../redux/actions/category';
+import { APP_ICON_URL } from '../config/config';
 
 // create a component
 class CategoryOriginal extends Component {
@@ -60,7 +61,7 @@ class CategoryOriginal extends Component {
                         return (
                             <TouchableOpacity style={styler} key={i} onPress={() => this.props.navigation.navigate('Search', {search: [{name:"category", value: v.id}]})}>
                                 <View style={styles.cardWrapper}>
-                                    { /*<Image style={{ width: 50, height: 50 }} source={{ uri: img }} /> */}
+                                    <Image style={{ width: 50, height: 50 }} source={{ uri: APP_ICON_URL.concat(v.icon) }} />
                                     <Text style={styles.title}>{v.name}</Text>
                                 </View>
                             </TouchableOpacity>

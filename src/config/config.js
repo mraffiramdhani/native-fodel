@@ -1,6 +1,8 @@
 import axios from 'axios'
 
-export const APP_URL = "http://10.10.10.12:4040"
+export const APP_URL = "http://52.22.124.137:4300/api/v1"
+export const APP_IMAGE_URL = "http://52.22.124.137:4300/images/"
+export const APP_ICON_URL = "http://52.22.124.137:4300/icons/"
 
 export const Get = (url, token = null, contentType = 'application/json') => {
     return new Promise((resolve, reject) => {
@@ -26,7 +28,7 @@ export const Get = (url, token = null, contentType = 'application/json') => {
     })
 }
 
-export const Post =  (url, token = null, body, contentType = 'application/json') => {
+export const Post = (url, token = null, body, contentType = 'application/json') => {
     return new Promise((resolve, reject) => {
         axios.defaults.headers.Authorization = `Bearer ${token}`
         axios({

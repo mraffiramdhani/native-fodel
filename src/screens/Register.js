@@ -3,16 +3,17 @@ import React, { Component } from 'react';
 import { View, Text, StyleSheet, Image, TouchableOpacity, ScrollView, Alert, ActivityIndicator } from 'react-native';
 import { Input } from 'native-base';
 import { withNavigation } from 'react-navigation';
-import {connect} from 'react-redux';
-import {register} from '../redux/actions/auth';
+import { connect } from 'react-redux';
+import { register } from '../redux/actions/auth';
 
 // create a component
 class RegisterOriginal extends Component {
-    constructor(props){
+    constructor(props) {
         super(props)
         this.state = {
             name: '',
             username: '',
+            email: '',
             password: '',
             isLoading: false,
             isSuccess: false,
@@ -21,10 +22,11 @@ class RegisterOriginal extends Component {
     }
 
     async handleSubmit() {
-        const { name, username, password } = this.state
+        const { name, username, email, password } = this.state
         const data = {
             name,
             username,
+            email,
             password,
         }
         await this.props.dispatch(register(data))
@@ -90,6 +92,9 @@ class RegisterOriginal extends Component {
                         </View>
                         <View style={styles.input}>
                             <Input placeholder="Username" textContentType="username" value={this.state.username} onChange={(e) => this.setState({ username: e.nativeEvent.text })} />
+                        </View>
+                        <View style={styles.input}>
+                            <Input placeholder="Email" textContentType="emailAddress" keyboardType="email-address" value={this.state.email} onChange={(e) => this.setState({ email: e.nativeEvent.text })} />
                         </View>
                         <View style={styles.input}>
                             <Input placeholder="Password" secureTextEntry textContentType="password" value={this.state.password} onChange={(e) => this.setState({ password: e.nativeEvent.text })} />
