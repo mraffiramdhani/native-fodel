@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import { View, StyleSheet, ScrollView } from 'react-native';
 import { Container, Toast } from 'native-base';
 import NetInfo from '@react-native-community/netinfo';
+import { withNavigation } from 'react-navigation';
 
 // Components
 import Header from '../components/Header';
@@ -13,7 +14,7 @@ import CardList from '../components/CardList';
 import RestaurantList from '../components/RestaurantList';
 
 // create a component
-class Home extends Component {
+class HomeOriginal extends Component {
     async componentDidMount() {
         NetInfo.fetch().then(state => {
             if (!state.isConnected) {
@@ -36,7 +37,7 @@ class Home extends Component {
                 >
                     <View style={styles.content}>
                         <Category />
-                        <SliderTitle title="Popular Menu" viewAll />
+                        <SliderTitle title="Popular Menu" viewAll onViewAllPressed={() => this.props.navigation.navigate('Search', { sort: [{ name: "rating", value: "desc" }] })} />
                         <CardList />
                         <SliderTitle title="Trending Restaurant" viewAll />
                         <RestaurantList />
@@ -50,6 +51,8 @@ class Home extends Component {
 const styles = StyleSheet.create({
     content: { paddingBottom: 20 },
 })
+
+const Home = withNavigation(HomeOriginal)
 
 //make this component available to the app
 export default Home;

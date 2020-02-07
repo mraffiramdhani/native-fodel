@@ -5,7 +5,6 @@ import { Input } from 'native-base';
 import { withNavigation } from 'react-navigation';
 import { connect } from 'react-redux';
 import { login } from '../redux/actions/auth';
-import AsyncStorage from '@react-native-community/async-storage';
 
 // create a component
 class LoginOriginal extends Component {
@@ -45,7 +44,6 @@ class LoginOriginal extends Component {
                         isSuccess: true,
                         message: "Login Success.",
                     })
-                    await AsyncStorage.setItem('token', this.props.auth.data.token)
                     this.handleRedirect()
                 } else {
                     console.log('gagal login')
@@ -60,7 +58,7 @@ class LoginOriginal extends Component {
         }
     }
 
-    async handleRedirect() {
+    handleRedirect() {
         if (this.state.isSuccess) {
             Alert.alert('Login Message', this.state.message, [
                 { text: 'OK', onPress: () => this.props.navigation.navigate('Home') },

@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-export const APP_URL = "http://192.168.0.117:4040"
+export const APP_URL = "http://10.10.10.12:4040"
 
 export const Get = (url, token = null, contentType = 'application/json') => {
     return new Promise((resolve, reject) => {

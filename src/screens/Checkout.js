@@ -28,7 +28,7 @@ class CheckoutOriginal extends Component {
                 <View style={styles.contentWrapper}>
                     <View style={{ backgroundColor: 'white', flex: 1, flexDirection: 'column', elevation: 5, borderRadius: 50, padding: 30, }}>
                         <View>
-                            <ItemAccordion data={[{ title: "Item(s) List", content: "asdasd" }]} />
+                            <ItemAccordion data={[{ title: "Item(s) List", content: "Kopi Teman Sejiwa" }]} />
                         </View>
                         <View style={{ flex: 1, flexDirection: 'column', margin: 20, alignItems: 'center' }}>
                             <Text style={{ fontFamily: 'Nunito-Regular', fontSize: 30 }}>Your Total</Text>

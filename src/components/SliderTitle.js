@@ -16,7 +16,7 @@ class SliderTitle extends Component {
             <View style={styles.container}>
                 <Text style={styles.title}>{this.props.title}</Text>
                 {this.props.viewAll &&
-                    <Text style={styles.viewAll}>View all</Text>
+                    <Text style={styles.viewAll} onPress={() => this.props.onViewAllPressed()}>View all</Text>
                 }
             </View>
         );
