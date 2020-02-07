@@ -1,100 +1,27 @@
-<h1 align="center">Fodel React - Food Delivery Web Front-End</h1>
+<h1 align="center">Fodel - Online Food Delivery App</h1>
 
 <p align="center">
 <a href="#"><img src="https://img.shields.io/badge/npm-6.13.4-brightgreen.svg?style=flat-square" alt="npm version">
 </a>
 <a href="#"><img src="https://img.shields.io/badge/node.js-12.14.0-blue.svg?style=flat-square" alt="node.js version"></a>
-<a href="#"><img src="https://img.shields.io/badge/react-16.12.0-green.svg?style=flat-square" alt="react version"></a>
+<a href="#"><img src="https://img.shields.io/badge/react_native-0.61-green.svg?style=flat-square" alt="react version"></a>
 <a href="#"><img src="https://img.shields.io/badge/redux-4.0.5-informational.svg?style=flat-square" alt="redux version"></a>
-<a href="https://https://github.com/mraffiramdhani/fodel-react/blob/master/LICENSE"><img src="https://img.shields.io/badge/license-GNU_GPL_V3-orange.svg?style=flat-square" alt="License"></a>
+<a href="https://https://github.com/mraffiramdhani/fodel-react/blob/master/LICENSE"></a>
 </p>
 
-Fodel React is an Online Food Delivery Web Front-End built using ReactJS Framework and Integrated with Fodel-API as the Back-End.
-
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Fodel is an Online Food Delivery Mobile App built using React Native Framework and Integrated with Fodel-API as the Back-End. 
 
 ## Screenshots
 
-### Desktop
 <p align="center">
-<img src="https://user-images.githubusercontent.com/46930178/72214053-dcf37f80-352c-11ea-9264-81ff9cab4bca.png">
-</p>
-
-### Mobile
-<p align="center">
-<img src="https://user-images.githubusercontent.com/46930178/72214054-dd8c1600-352c-11ea-809c-ddfc9f823e00.png">
+<img src="https://user-images.githubusercontent.com/46930178/74031195-70f91f80-49e3-11ea-8cbf-f597b73d538a.png" width="220">
+<img src="https://user-images.githubusercontent.com/46930178/74031201-735b7980-49e3-11ea-95fa-97f22f36efd3.png" width="220">
+<img src="https://user-images.githubusercontent.com/46930178/74031203-73f41000-49e3-11ea-8db6-73d7e6b96fac.png" width="220">
+<img src="https://user-images.githubusercontent.com/46930178/74031207-748ca680-49e3-11ea-8cba-6f9a5b604882.png" width="220">
 </p>
 
 ## Developing
 1. Open your terminal or command prompt
-2. Type `git clone https://github.com/mraffiramdhani/fodel-react.git`
-3. Open the project directory and Type `npm install` to install all dependencies
-4. Type `npm start` in the terminal or command prompt to run the App
-5. Open `http://localhost:3000` to view the running App
-
-## Available Scripts
-
-In the project directory, you can run:
-
-### `npm start`
-
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
-
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `npm run build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+2. Type `git clone https://github.com/mraffiramdhani/native-fodel.git`
+3. Open the project directory and Type `yarn install` to install all dependencies
+4. Type `yarn start` in the terminal or command prompt to run the App
