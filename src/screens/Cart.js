@@ -111,7 +111,7 @@ class CartOriginal extends Component {
                                 <ActivityIndicator size="large" color="#0000ff" />
                             </View>
                         }
-                        {!this.state.isLoading && this.props.cart.data.length !== 0 ?
+                        {!this.state.isLoading && this.props.cart.data.length !== 0 &&
                             this.props.cart.data.map((v, i) => {
                                 if (v.images.length !== 0) {
                                     var image = APP_URL.concat(`/images/${v.image[0].filename}`)
@@ -120,7 +120,10 @@ class CartOriginal extends Component {
                                     <CartItem key={i} id={v.id} quantity={v.quantity} image={v.images.length !== 0 ? image : ''} item={v.detail[0]} onDelete={(e) => this.handleConfirmDelete(e)} />
                                 )
                             })
-                            : <View style={styles.itemWrapper, { justifyContent: 'center', alignItems: 'center' }}><Text>Cart is empty. Let's Go Food Hunting!</Text></View>
+                        }
+                        {
+                            !this.state.isLoading && this.props.cart.data.length === 0 &&
+                            <View style={styles.itemWrapper, { justifyContent: 'center', alignItems: 'center' }}><Text>Cart is empty. Let's Go Food Hunting!</Text></View>
                         }
                     </ScrollView>
                 </View>

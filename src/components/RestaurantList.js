@@ -31,7 +31,6 @@ class RestaurantListOriginal extends Component {
                     showsHorizontalScrollIndicator={false}
                 >
                     {!this.state.isLoading && this.props.restaurant.data.restaurants.map((v, i) => {
-                        // var img = <Image style={{ width: 50, height: 50, borderRadius: 50, }} source={{ uri: img }} />
                         var img = <View style={{ width: 50, height: 50, borderRadius: 50, backgroundColor: '#222' }}><Text>No Image</Text></View>
                         if(v.logo !== ''){
                             if(v.logo.substr(0, 4) === 'http'){
@@ -51,7 +50,7 @@ class RestaurantListOriginal extends Component {
                             <TouchableOpacity style={styled} key={i} onPress={() => this.props.navigation.navigate('RestaurantDetail')}>
                                 <View style={styles.cardWrapper}>
                                     {img}
-                                    <Text style={styles.title}>{v.name}</Text>
+                                    <Text style={styles.title}>{v.name.length > 12 ? v.name.slice(0, 11) + "…" : v.name}</Text>
                                 </View>
                             </TouchableOpacity>
                         )

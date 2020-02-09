@@ -29,7 +29,7 @@ class ProfileOriginal extends Component {
         }
     }
 
-    async componentDidMount(){
+    async componentDidMount() {
         await this.setState({
             photo: { uri: APP_IMAGE_URL.concat(this.props.auth.data.photo) }
         });
@@ -127,17 +127,17 @@ class ProfileOriginal extends Component {
                         photo: { uri: response.uri }
                     });
                     RNFetchBlob.fetch('PATCH', `${APP_URL}/profile/photo`, {
-                        Authorization : `Bearer ${jwt}`,
-                        'Content-Type' : 'multipart/form-data',
-                      }, [
-                        { name : 'image', filename : response.fileName, type: response.type, data: RNFetchBlob.wrap(response.path)},
-                      ]).then(async (resp) => {
+                        Authorization: `Bearer ${jwt}`,
+                        'Content-Type': 'multipart/form-data',
+                    }, [
+                        { name: 'image', filename: response.fileName, type: response.type, data: RNFetchBlob.wrap(response.path) },
+                    ]).then(async (resp) => {
                         console.log(resp);
                         await this.props.dispatch(getProfile(jwt));
                         ToastAndroid.show('Change Profile Picture Success', ToastAndroid.LONG);
-                      }).catch((err) => {
+                    }).catch((err) => {
                         console.log(err);
-                      })
+                    })
                 }
             });
         }

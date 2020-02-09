@@ -5,6 +5,7 @@ import SliderTitle from '../components/SliderTitle';
 import { connect } from 'react-redux';
 import { getCategories } from '../redux/actions/category';
 import { withNavigation } from 'react-navigation';
+import { APP_ICON_URL } from '../config/config';
 
 // create a component
 class CategoryOriginal extends Component {
@@ -26,12 +27,12 @@ class CategoryOriginal extends Component {
                 </View>
                 <View style={styles.contentWrapper}>
                     {!this.state.isLoading && this.props.category.data.categories.map((v, i) => {
-                        var image = `asset:/icons/${v.icon}`
+                        var image = APP_ICON_URL.concat(v.icon)
                         return (
-                        <TouchableOpacity style={styles.categoryCard} key={i} onPress={() => this.props.navigation.navigate('Search', {search: [{name:"category", value: v.id}]})}>
-                            <Image source={{ uri: image }} style={{ width: 40, height: 40 }} />
-                            <Text style={{ marginTop: 5, fontFamily: 'Nunito-Regular', fontSize: 14, textAlign: 'center' }}>{v.name}</Text>
-                        </TouchableOpacity>
+                            <TouchableOpacity style={styles.categoryCard} key={i} onPress={() => this.props.navigation.navigate('Search', { search: [{ name: "category", value: v.id }] })}>
+                                <Image source={{ uri: image }} style={{ width: 40, height: 40 }} />
+                                <Text style={{ marginTop: 5, fontFamily: 'Nunito-Regular', fontSize: 14, textAlign: 'center' }}>{v.name}</Text>
+                            </TouchableOpacity>
                         )
                     })}
                 </View>
@@ -72,6 +73,7 @@ const styles = StyleSheet.create({
         padding: 10,
         justifyContent: 'center',
         alignItems: 'center',
+        height: 120,
     },
 });
 

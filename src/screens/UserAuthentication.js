@@ -43,12 +43,13 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'flex-start',
         backgroundColor: '#fff',
-        padding: 20,
+        paddingHorizontal: 20,
     },
     headerWrapper: {
         flex: 0,
         flexDirection: 'row',
-        alignItems: 'center'
+        alignItems: 'center',
+        marginVertical: 10,
     },
     logo: {
         width: 30,
@@ -113,7 +114,7 @@ const styles = StyleSheet.create({
     epilogWrapper: {
         flex: 0,
         flexDirection: 'row',
-        marginTop: 10,
+        marginVertical: 10,
         alignItems: 'flex-end'
     },
 });
