@@ -21,6 +21,13 @@ export const logout = (jwt) => {
     }
 }
 
+export const getProfile = (jwt) => {
+    return {
+        type: 'GET_PROFILE',
+        payload: Get(APP_URL.concat('/profile'), jwt)
+    }
+}
+
 export const patchUser = (jwt, data) => {
     return {
         type: 'PATCH_USER',

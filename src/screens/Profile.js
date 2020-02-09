@@ -1,28 +1,38 @@
 //import liraries
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, Image, ScrollView, TouchableOpacity, Alert } from 'react-native';
 import SliderTitle from '../components/SliderTitle';
 import Feather from 'react-native-vector-icons/Feather';
+import ImagePicker from 'react-native-image-picker';
+import RNFetchBlob from 'rn-fetch-blob';
+import { View, Text, StyleSheet, Image, ScrollView, TouchableOpacity, Alert, PermissionsAndroid, ToastAndroid, ActivityIndicator } from 'react-native';
 import { connect } from 'react-redux';
-import { logout } from '../redux/actions/auth';
+import { logout, getProfile } from '../redux/actions/auth';
 import { withNavigation } from 'react-navigation';
+import { APP_IMAGE_URL, APP_URL } from '../config/config';
 
 // create a component
 class ProfileOriginal extends Component {
     constructor(props) {
         super(props)
         this.state = {
+            photo: null,
             isLoading: false,
             isSuccess: false,
             message: '',
         }
     }
 
-    async handleLogout(){
+    async handleLogout() {
         const jwt = await this.props.auth.data.token
-        if(jwt !== null){
+        if (jwt !== null) {
             await this.props.dispatch(logout(jwt))
         }
+    }
+
+    async componentDidMount(){
+        await this.setState({
+            photo: { uri: APP_IMAGE_URL.concat(this.props.auth.data.photo) }
+        });
     }
 
     async componentDidUpdate(prevProps) {
@@ -65,7 +75,77 @@ class ProfileOriginal extends Component {
         }
     }
 
+    requestCameraPermission = async () => {
+        try {
+            const granted = await PermissionsAndroid.requestMultiple([
+                PermissionsAndroid.PERMISSIONS.CAMERA,
+                PermissionsAndroid.PERMISSIONS.READ_EXTERNAL_STORAGE,
+                PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE,
+            ]);
+            return granted === PermissionsAndroid.RESULTS.GRANTED;
+        }
+        catch (error) {
+            console.warn(err);
+            return false;
+        }
+    }
+
+    updateProfilePic = async () => {
+
+        const jwt = this.props.auth.data.token;
+
+        const options = {
+            title: 'Select Avatar',
+            storageOptions: {
+                skipBackup: true,
+                path: 'images',
+            },
+            mediaType: 'photo',
+        };
+
+        let cameraPermission =
+            (await PermissionsAndroid.check(PermissionsAndroid.PERMISSIONS.CAMERA)) &&
+            PermissionsAndroid.check(
+                PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE,
+            ) &&
+            PermissionsAndroid.check(
+                PermissionsAndroid.PERMISSIONS.READ_EXTERNAL_STORAGE,
+            );
+        if (!cameraPermission) {
+            cameraPermission = await this.requestCameraPermission();
+        } else {
+            ImagePicker.showImagePicker(options, response => {
+                if (response.didCancel) {
+                    ToastAndroid.show('Action Cancelled', ToastAndroid.LONG);
+                } else if (response.error) {
+                    ToastAndroid.show(response.error, ToastAndroid.LONG);
+                } else if (response.customButton) {
+                    console.log('User tapped custom button: ', response.customButton);
+                } else {
+                    ToastAndroid.show('loading...', ToastAndroid.LONG);
+                    this.setState({
+                        photo: { uri: response.uri }
+                    });
+                    RNFetchBlob.fetch('PATCH', `${APP_URL}/profile/photo`, {
+                        Authorization : `Bearer ${jwt}`,
+                        'Content-Type' : 'multipart/form-data',
+                      }, [
+                        { name : 'image', filename : response.fileName, type: response.type, data: RNFetchBlob.wrap(response.path)},
+                      ]).then(async (resp) => {
+                        console.log(resp);
+                        await this.props.dispatch(getProfile(jwt));
+                        ToastAndroid.show('Change Profile Picture Success', ToastAndroid.LONG);
+                      }).catch((err) => {
+                        console.log(err);
+                      })
+                }
+            });
+        }
+    };
+
+
     render() {
+        console.log(this.state.photo);
         return (
             <View style={styles.container}>
                 <View style={styles.headerWrapper}>
@@ -73,8 +153,14 @@ class ProfileOriginal extends Component {
                         <SliderTitle title="Profile" />
                     </View>
                     <View style={{ flex: 1, flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
-                        <Image source={require('../assets/images/default.png')} style={{ width: 100, height: 100, borderRadius: 15, borderColor: 'white', borderWidth: 3 }} />
-                        <Text style={{ fontFamily: 'Nunito-Regular', fontSize: 30, color: '#111' }}>{this.props.auth.data.name}</Text>
+                        <TouchableOpacity onPress={() => this.updateProfilePic()} style={{ borderWidth: 3, borderRadius: 15, padding: 10, borderRadius: 100 }}>
+                            {this.state.photo !== null
+                                ? <Image source={this.state.photo} style={{ width: 100, height: 100, borderRadius: 100 }} />
+                                : <ActivityIndicator size="large" color="black" />
+                            }
+                            <Feather name="edit" size={25} style={{ position: 'absolute', right: -15, bottom: -10 }} />
+                        </TouchableOpacity>
+                        <Text style={{ fontFamily: 'Nunito-Regular', fontSize: 30, color: '#111', textAlign: 'center', marginTop: 10 }}>{this.props.auth.data.name}</Text>
                     </View>
                 </View>
                 <View style={{ flex: 1, flexDirection: 'column', width: '100%' }}>
@@ -83,8 +169,6 @@ class ProfileOriginal extends Component {
                             <View>
                                 <Text style={{ fontFamily: 'Nunito-Regular', fontSize: 25 }}>{this.props.auth.data.name}</Text>
                                 <Text style={{ fontFamily: 'Nunito-Regular', color: '#333', fontSize: 15 }}>{this.props.auth.data.username}</Text>
-                            </View>
-                            <View>
                                 <Text style={{ fontFamily: 'Nunito-Regular', color: 'green', fontSize: 15 }} onPress={() => this.props.navigation.navigate('ProfileSetting')}>Change</Text>
                             </View>
                         </View>
@@ -127,13 +211,13 @@ const styles = StyleSheet.create({
     },
 });
 
-const Profile = withNavigation(ProfileOriginal)
+const Profile = withNavigation(ProfileOriginal);
 
 const mapStateToProps = state => {
     return {
         auth: state.auth,
     }
-}
+};
 
 //make this component available to the app
 export default connect(mapStateToProps)(Profile);

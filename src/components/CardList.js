@@ -33,7 +33,6 @@ class CardListOriginal extends Component {
                 >
                     {!this.state.isLoading && this.props.item.data.items.map((v, i) => {
                         var img = <View style={[styles.image, { backgroundColor: '#bbb' }]}><Text>No Image</Text></View>
-                        console.log(v.images);
                         if (v.images.length !== 0) {
                             if (v.images[0].filename.substr(0, 4) === 'http') {
                                 img = <Image source={{ uri: v.images.filename }} style={styles.image} resizeMode="cover" />

@@ -12,6 +12,7 @@ export const Get = (url, token = null, contentType = 'application/json') => {
             baseURL: APP_URL,
             url: url,
             headers: {
+                Accept: 'application/json',
                 common: {
                     'Content-Type': contentType
                 },
@@ -36,6 +37,7 @@ export const Post = (url, token = null, body, contentType = 'application/json') 
             baseURL: APP_URL,
             url: url,
             headers: {
+                Accept: 'application/json',
                 common: {
                     'Content-Type': contentType
                 },
@@ -60,6 +62,7 @@ export const Patch = (url, token = null, body, contentType = 'application/json')
             baseURL: APP_URL,
             url: url,
             headers: {
+                Accept: 'application/json',
                 common: {
                     'Content-Type': contentType
                 },
@@ -84,6 +87,7 @@ export const Delete = (url, token = null, body, contentType = 'application/json'
             baseURL: APP_URL,
             url: url,
             headers: {
+                Accept: 'application/json',
                 common: {
                     'Content-Type': contentType
                 },

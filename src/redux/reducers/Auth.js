@@ -78,6 +78,27 @@ const auth = (state = initialState, action) => {
                 isSuccess: true,
             }
 
+        case 'GET_PROFILE_PENDING':
+            return {
+                ...state,
+                isError: false,
+                isSuccess: false,
+            }
+        case 'GET_PROFILE_REJECTED':
+            return {
+                ...state,
+                isError: true,
+                isSuccess: false,
+            }
+        case 'GET_PROFILE_FULFILLED':
+            state.data.photo = action.payload.data.data.photo;
+            return {
+                ...state,
+                isLoading: false,
+                isError: false,
+                isSuccess: action.payload.data.success,
+            }
+
         case 'PATCH_USER_PENDING':
             return {
                 ...state,

@@ -5,6 +5,7 @@ import { Button } from 'native-base';
 import { Header as Head } from 'native-base';
 import { connect } from 'react-redux';
 import { withNavigation } from 'react-navigation';
+import { APP_IMAGE_URL } from '../config/config';
 
 class HeaderOriginal extends Component {
     render() {
@@ -17,7 +18,7 @@ class HeaderOriginal extends Component {
                             <Text style={styles.title}>Customer</Text>
                         </View>
                         <TouchableOpacity style={styles.imageWrapper} onPress={() => this.props.navigation.navigate('Profile')}>
-                            <Image source={require('../assets/images/default.png')} style={styles.image} />
+                            <Image source={{uri : APP_IMAGE_URL.concat(this.props.auth.data.photo)}} style={styles.image} />
                         </TouchableOpacity>
                     </View>
                 }
@@ -35,7 +36,7 @@ const styles = StyleSheet.create({
     name: { fontFamily: 'Nunito-Regular', fontSize: 18 },
     title: { fontFamily: 'Nunito-Regular', },
     imageWrapper: { flex: 1, justifyContent: 'center', alignItems: 'flex-end' },
-    image: { width: 40, height: 40 },
+    image: { width: 40, height: 40, borderRadius: 100 },
 });
 
 const mapStateToProps = state => {
