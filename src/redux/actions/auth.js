@@ -21,6 +21,13 @@ export const logout = (jwt) => {
     }
 }
 
+export const changePhoto = (photo) => {
+    return {
+        type: 'CHANGE_PHOTO',
+        photo,
+    }
+}
+
 export const getProfile = (jwt) => {
     return {
         type: 'GET_PROFILE',

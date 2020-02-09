@@ -3,8 +3,8 @@ import React, { Component } from 'react';
 import { View, Text, StyleSheet, ScrollView, Image, TouchableOpacity } from 'react-native';
 import { connect } from 'react-redux';
 import { getRestaurants } from '../redux/actions/restaurant';
-import {withNavigation} from 'react-navigation';
-import {APP_URL} from '../config/config';
+import { withNavigation } from 'react-navigation';
+import { APP_IMAGE_URL } from '../config/config';
 
 // create a component
 class RestaurantListOriginal extends Component {
@@ -32,11 +32,11 @@ class RestaurantListOriginal extends Component {
                 >
                     {!this.state.isLoading && this.props.restaurant.data.restaurants.map((v, i) => {
                         var img = <View style={{ width: 50, height: 50, borderRadius: 50, backgroundColor: '#222' }}><Text>No Image</Text></View>
-                        if(v.logo !== ''){
-                            if(v.logo.substr(0, 4) === 'http'){
+                        if (v.logo !== '') {
+                            if (v.logo.substr(0, 4) === 'http') {
                                 img = <Image source={{ uri: v.logo }} style={{ width: 50, height: 50, borderRadius: 50, }} resizeMode="cover" />
-                            }else{
-                                img = <Image source={{ uri: APP_URL.concat('/logos/' + v.logo) }} style={{ width: 50, height: 50, borderRadius: 50, }} resizeMode="cover" />
+                            } else {
+                                img = <Image source={{ uri: APP_IMAGE_URL.concat(v.logo) }} style={{ width: 50, height: 50, borderRadius: 50, }} resizeMode="cover" />
                             }
                         }
                         var styled = [styles.card]

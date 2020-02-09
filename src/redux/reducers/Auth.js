@@ -78,6 +78,13 @@ const auth = (state = initialState, action) => {
                 isSuccess: true,
             }
 
+        case 'CHANGE_PHOTO': 
+            const result = {
+                ...state
+            };
+            result.data.photo = action.photo;
+            return result
+
         case 'GET_PROFILE_PENDING':
             return {
                 ...state,

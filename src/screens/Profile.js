@@ -6,7 +6,7 @@ import ImagePicker from 'react-native-image-picker';
 import RNFetchBlob from 'rn-fetch-blob';
 import { View, Text, StyleSheet, Image, ScrollView, TouchableOpacity, Alert, PermissionsAndroid, ToastAndroid, ActivityIndicator } from 'react-native';
 import { connect } from 'react-redux';
-import { logout, getProfile } from '../redux/actions/auth';
+import { logout, changePhoto } from '../redux/actions/auth';
 import { withNavigation } from 'react-navigation';
 import { APP_IMAGE_URL, APP_URL } from '../config/config';
 
@@ -132,8 +132,8 @@ class ProfileOriginal extends Component {
                     }, [
                         { name: 'image', filename: response.fileName, type: response.type, data: RNFetchBlob.wrap(response.path) },
                     ]).then(async (resp) => {
-                        console.log(resp);
-                        await this.props.dispatch(getProfile(jwt));
+                        const data = JSON.parse(resp.data);
+                        this.props.dispatch(changePhoto(data.data.photo));
                         ToastAndroid.show('Change Profile Picture Success', ToastAndroid.LONG);
                     }).catch((err) => {
                         console.log(err);
@@ -145,7 +145,6 @@ class ProfileOriginal extends Component {
 
 
     render() {
-        console.log(this.state.photo);
         return (
             <View style={styles.container}>
                 <View style={styles.headerWrapper}>
