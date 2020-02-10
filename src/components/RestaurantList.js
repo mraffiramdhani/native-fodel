@@ -30,6 +30,28 @@ class RestaurantListOriginal extends Component {
                     horizontal
                     showsHorizontalScrollIndicator={false}
                 >
+                    {this.state.isLoading &&
+                        <>
+                            <View style={[styles.card, { marginLeft: 20 }]}>
+                                <View style={styles.cardWrapper}>
+                                    <View style={{ backgroundColor: '#eee', width: 50, height: 50 }}></View>
+                                    <View style={{ backgroundColor: '#eee', height: 10, width: 50, marginTop: 5 }}></View>
+                                </View>
+                            </View>
+                            <View style={[styles.card, { marginLeft: 20 }]}>
+                                <View style={styles.cardWrapper}>
+                                    <View style={{ backgroundColor: '#eee', width: 50, height: 50 }}></View>
+                                    <View style={{ backgroundColor: '#eee', height: 10, width: 50, marginTop: 5 }}></View>
+                                </View>
+                            </View>
+                            <View style={[styles.card, { marginLeft: 20 }]}>
+                                <View style={styles.cardWrapper}>
+                                    <View style={{ backgroundColor: '#eee', width: 50, height: 50 }}></View>
+                                    <View style={{ backgroundColor: '#eee', height: 10, width: 50, marginTop: 5 }}></View>
+                                </View>
+                            </View>
+                        </>
+                    }
                     {!this.state.isLoading && this.props.restaurant.data.restaurants.map((v, i) => {
                         var img = <View style={{ width: 50, height: 50, borderRadius: 50, backgroundColor: '#222' }}><Text>No Image</Text></View>
                         if (v.logo !== '') {

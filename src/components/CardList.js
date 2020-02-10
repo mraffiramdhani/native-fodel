@@ -19,9 +19,17 @@ class CardListOriginal extends Component {
     }
 
     async componentDidMount() {
-        const jwt = this.props.auth.data.token
-        await this.props.dispatch(getPopularItems(jwt))
-        await this.setState({ isLoading: false })
+        const jwt = this.props.auth.data.token;
+        await this.props.dispatch(getPopularItems(jwt));
+        await this.setState({ isLoading: false });
+        this.props.navigation.addListener('didFocus', () => this.onFocus());
+    }
+
+    async onFocus(){
+        await this.setState({isLoading: true});
+        const jwt = this.props.auth.data.token;
+        await this.props.dispatch(getPopularItems(jwt));
+        await this.setState({ isLoading: false });
     }
 
     render() {
@@ -31,6 +39,32 @@ class CardListOriginal extends Component {
                     horizontal
                     showsHorizontalScrollIndicator={false}
                 >
+                    {
+                        this.state.isLoading &&
+                        <View style={{marginHorizontal: 20, flexDirection: 'row'}}>
+                            <View style={styles.menuWrapper}>
+                                <View style={{width: 200, height:120, backgroundColor: '#eee'}}></View>
+                                <View style={styles.menuInfo}>
+                                    <View style={{width: 60, height: 10, backgroundColor: '#eee'}}></View>
+                                    <View style={{width: 120, height: 10, backgroundColor: '#eee', marginTop: 5}}></View>
+                                </View>
+                            </View>
+                            <View style={styles.menuWrapper}>
+                                <View style={{width: 200, height:120, backgroundColor: '#eee'}}></View>
+                                <View style={styles.menuInfo}>
+                                    <View style={{width: 60, height: 10, backgroundColor: '#eee'}}></View>
+                                    <View style={{width: 120, height: 10, backgroundColor: '#eee', marginTop: 5}}></View>
+                                </View>
+                            </View>
+                            <View style={styles.menuWrapper}>
+                                <View style={{width: 200, height:120, backgroundColor: '#eee'}}></View>
+                                <View style={styles.menuInfo}>
+                                    <View style={{width: 60, height: 10, backgroundColor: '#eee'}}></View>
+                                    <View style={{width: 120, height: 10, backgroundColor: '#eee', marginTop: 5}}></View>
+                                </View>
+                            </View>
+                        </View>
+                    }
                     {!this.state.isLoading && this.props.item.data.items.map((v, i) => {
                         var img = <View style={[styles.image, { backgroundColor: '#bbb' }]}><Text>No Image</Text></View>
                         if (v.images.length !== 0) {

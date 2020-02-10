@@ -1,15 +1,15 @@
 //import liraries
 import React, { Component } from 'react';
-import { View, StyleSheet, ScrollView, Image, ActivityIndicator, TouchableOpacity, Alert } from 'react-native';
-import { Button, Text } from 'native-base';
 import Counter from 'react-native-counters';
 import Feather from 'react-native-vector-icons/Feather';
-import { connect } from 'react-redux';
-import { APP_URL } from '../config/config';
-import { getCart, deleteCart } from '../redux/actions/cart';
-import { withNavigation } from 'react-navigation';
 import SliderTitle from '../components/SliderTitle';
 import formatRupiah from '../helper/formatRupiah';
+import { connect } from 'react-redux';
+import { APP_IMAGE_URL } from '../config/config';
+import { getCart, deleteCart } from '../redux/actions/cart';
+import { withNavigation } from 'react-navigation';
+import { View, StyleSheet, ScrollView, Image, ActivityIndicator, TouchableOpacity, Alert } from 'react-native';
+import { Button, Text } from 'native-base';
 
 const minusIcon = (isMinusDisabled, touchableDisabledColor, touchableColor) => {
     return <Feather name='minus' size={15} color={isMinusDisabled ? touchableDisabledColor : touchableColor} />
@@ -114,10 +114,10 @@ class CartOriginal extends Component {
                         {!this.state.isLoading && this.props.cart.data.length !== 0 &&
                             this.props.cart.data.map((v, i) => {
                                 if (v.images.length !== 0) {
-                                    var image = APP_URL.concat(`/images/${v.image[0].filename}`)
+                                    var image = APP_IMAGE_URL.concat(v.images[0].filename)
                                 }
                                 return (
-                                    <CartItem key={i} id={v.id} quantity={v.quantity} image={v.images.length !== 0 ? image : ''} item={v.detail[0]} onDelete={(e) => this.handleConfirmDelete(e)} />
+                                    <CartItem key={i} id={v.id} quantity={v.quantity} image={v.images.length !== 0 ? image : ''} item={v.details} onDelete={(e) => this.handleConfirmDelete(e)} />
                                 )
                             })
                         }

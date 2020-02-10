@@ -15,6 +15,7 @@ import RestaurantList from '../components/RestaurantList';
 
 // create a component
 class HomeOriginal extends Component {
+    
     async componentDidMount() {
         NetInfo.fetch().then(state => {
             if (!state.isConnected) {

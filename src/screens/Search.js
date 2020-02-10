@@ -5,7 +5,7 @@ import { Input, Container } from 'native-base';
 import { withNavigation } from 'react-navigation';
 import { connect } from 'react-redux';
 import { getItems } from '../redux/actions/item';
-import { APP_URL } from '../config/config';
+import { APP_IMAGE_URL } from '../config/config';
 import IonIcon from 'react-native-vector-icons/Ionicons';
 import formatRupiah from '../helper/formatRupiah';
 
@@ -27,6 +27,7 @@ class SearchOriginal extends Component {
     async componentDidMount() {
         const searchParam = this.props.navigation.getParam('search')
         const sortParam = this.props.navigation.getParam('sort')
+        const jwt = this.props.auth.data.token;
         var arr_params = []
         var params = ""
         if (searchParam) {
@@ -40,19 +41,20 @@ class SearchOriginal extends Component {
             })
         }
         params = arr_params.join('&')
-        await this.props.dispatch(getItems(params))
+        await this.props.dispatch(getItems(jwt, params))
         await this.setState({ isLoading: false, searchDidMount: params })
     }
 
     async componentDidUpdate(prevProps, prevState) {
+        const jwt = this.props.auth.data.token;
         if (prevState.searchValue !== this.state.searchValue) {
             if (this.state.searchValue.length >= 3) {
                 await this.setState({ isLoading: true })
-                await this.props.dispatch(getItems(this.state.searchDidMount + `&search[name]=${this.state.searchValue}`))
+                await this.props.dispatch(getItems(jwt, this.state.searchDidMount + `&search[name]=${this.state.searchValue}`))
                 await this.setState({ isLoading: false })
             } else if (this.state.searchValue.length === 0) {
                 await this.setState({ isLoading: true })
-                await this.props.dispatch(getItems(this.state.searchDidMount))
+                await this.props.dispatch(getItems(jwt, this.state.searchDidMount))
                 await this.setState({ isLoading: false })
             }
         }
@@ -76,7 +78,7 @@ class SearchOriginal extends Component {
                             if (v.images[0].filename.substr(0, 4) === 'http') {
                                 img = <Image source={{ uri: v.images.filename }} style={styles.image} resizeMode="cover" />
                             } else {
-                                img = <Image source={{ uri: APP_URL.concat('/images/' + v.images[0].filename) }} style={styles.image} resizeMode="cover" />
+                                img = <Image source={{ uri: APP_IMAGE_URL.concat(v.images[0].filename) }} style={styles.image} resizeMode="cover" />
                             }
                         }
                         return (
@@ -178,7 +180,8 @@ const Search = withNavigation(SearchOriginal)
 
 const mapStateToProps = state => {
     return {
-        item: state.item
+        item: state.item,
+        auth: state.auth
     }
 }
 

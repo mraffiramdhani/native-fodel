@@ -6,7 +6,7 @@ import Counter from 'react-native-counters';
 import Feather from 'react-native-vector-icons/Feather';
 import { Button, Text } from 'native-base';
 import { connect } from 'react-redux';
-import { APP_URL } from '../config/config';
+import { APP_URL, APP_IMAGE_URL } from '../config/config';
 import { getItem } from '../redux/actions/item';
 import { postCart } from '../redux/actions/cart';
 import { withNavigation } from 'react-navigation';
@@ -28,6 +28,7 @@ class ItemDetailOriginal extends Component {
     constructor(props) {
         super(props)
         this.state = {
+            itemImage: null,
             isLoading: true,
             modalVisible: false,
             quantity: 1,
@@ -36,8 +37,12 @@ class ItemDetailOriginal extends Component {
     }
 
     async componentDidMount() {
-        await this.props.dispatch(getItem(this.props.navigation.getParam('itemId')))
+        const jwt = this.props.auth.data.token;
+        await this.props.dispatch(getItem(jwt, this.props.navigation.getParam('itemId')))
         await this.setState({ isLoading: false })
+        await this.setState({
+            itemImage: { uri: APP_IMAGE_URL.concat(this.props.item.itemDetail.images[0].filename) }
+        });
     }
 
     async handleAddToCart() {
@@ -100,8 +105,8 @@ class ItemDetailOriginal extends Component {
                 </Modal>
                 {!this.state.isLoading &&
                     <>
-                        {this.props.item.itemDetail.images ?
-                            <ImageBackground source={{ uri: `asset:/images/${this.props.item.itemDetail.image}` }} style={styles.imageBackground} resizeMethod="auto" resizeMode="cover">
+                        {this.state.itemImage !== null ?
+                            <ImageBackground source={this.state.itemImage} style={styles.imageBackground} resizeMethod="auto" resizeMode="cover">
                                 <ButtonBack />
                             </ImageBackground>
                             :
@@ -117,7 +122,10 @@ class ItemDetailOriginal extends Component {
                                         <Icon name="ios-star" size={30} style={styles.star} />
                                         <Text style={styles.starCount}>{this.props.item.itemDetail.rating}</Text>
                                     </View>
-                                    <Text style={styles.price}>{formatRupiah(this.props.item.itemDetail.price, 'Rp.')}</Text>
+                                    {
+                                        this.props.item.itemDetail.price !== null &&
+                                        <Text style={styles.price}>{formatRupiah(this.props.item.itemDetail.price, 'Rp.')}</Text>
+                                    }
                                 </View>
                                 <Text style={styles.description}>{this.props.item.itemDetail.description}</Text>
                                 <View style={styles.categoryWrapper}>
@@ -129,14 +137,15 @@ class ItemDetailOriginal extends Component {
                                 </View>
                                 <Text style={{ fontFamily: 'Nunito-Regular', marginTop: 10 }}>Suggested Menu</Text>
                                 <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-                                    {this.props.item.itemDetail.suggest.map((v, i) => {
+                                    {this.props.item.itemDetail.suggests.map((v, i) => {
+                                        console.log(v);
                                         return (
                                             <TouchableOpacity style={{ backgroundColor: '#fff', width: 100, height: 120, borderRadius: 12, margin: 10, elevation: 5, marginLeft: 20 }} key={i} onPress={() => this.props.navigation.replace('ItemDetail', { itemId: v.id })}>
                                                 <View style={{ flex: 1, flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
                                                     {
                                                         v.images.length !== 0
                                                             ? <Image source={{ uri: APP_URL.concat(`/images/${v.images[0].filename}`) }} style={{ backgroundColor: '#eee', width: 50, height: 50 }} resizeMode="cover" />
-                                                            : <Image source={{ uri: `asset:/icons/favicon.png` }} style={{ backgroundColor: '#eee', width: 50, height: 50 }} resizeMode="cover" />
+                                                            : <Image source={{ uri: `asset:/icons/favicon.png` }} style={{ width: 50, height: 50 }} resizeMode="cover" />
                                                     }
                                                     <Text style={{ fontFamily: 'Nunito-Regular', fontSize: 12, textAlign: 'center' }}>{v.name}</Text>
                                                 </View>
@@ -151,7 +160,7 @@ class ItemDetailOriginal extends Component {
                                             <View style={{ backgroundColor: 'white', padding: 10, margin: 10, elevation: 3, borderRadius: 12 }} key={i}>
                                                 <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'space-between' }}>
                                                     <View style={{ flex: 1 }}>
-                                                        <Text style={{ fontSize: 16, fontFamily: 'Nunito-Regular' }}>{v.user}</Text>
+                                                        <Text style={{ fontSize: 16, fontFamily: 'Nunito-Regular' }}>{v.user.length !== 0 ? v.user[0].name : 'Anonimous'}</Text>
                                                     </View>
                                                     <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'flex-end' }}>
                                                         <Icon name="ios-star" size={20} style={styles.star} />

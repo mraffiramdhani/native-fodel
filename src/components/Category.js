@@ -50,7 +50,6 @@ class CategoryOriginal extends Component {
                         </>
                     }
                     {!this.state.isLoading && this.props.category.data.categories.map((v, i) => {
-                        // var img = `asset:/icons/${v.icon}`;
                         var styler = [styles.card]
                         if (i === 0) {
                             styler.push({ marginLeft: 20 })
