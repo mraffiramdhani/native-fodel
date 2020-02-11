@@ -103,81 +103,82 @@ class ItemDetailOriginal extends Component {
                         </View>
                     </View>
                 </Modal>
-                {!this.state.isLoading &&
-                    <>
-                        {this.state.itemImage !== null ?
-                            <ImageBackground source={this.state.itemImage} style={styles.imageBackground} resizeMethod="auto" resizeMode="cover">
-                                <ButtonBack />
-                            </ImageBackground>
-                            :
-                            <View style={styles.imageBackground}>
-                                <ButtonBack />
-                            </View>
-                        }
-                        <View style={styles.infoCard}>
-                            <Text style={styles.name}>{this.props.item.itemDetail.name}</Text>
-                            <ScrollView showsVerticalScrollIndicator={false}>
-                                <View style={styles.infoWrapper}>
-                                    <View style={styles.ratingWrapper}>
-                                        <Icon name="ios-star" size={30} style={styles.star} />
-                                        <Text style={styles.starCount}>{this.props.item.itemDetail.rating}</Text>
+                {this.state.isLoading 
+                    ?   <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}><ActivityIndicator size="large" color="black" /></View>
+                    :   <>
+                            {this.state.itemImage !== null ?
+                                <ImageBackground source={this.state.itemImage} style={styles.imageBackground} resizeMethod="auto" resizeMode="cover">
+                                    <ButtonBack />
+                                </ImageBackground>
+                                :
+                                <View style={styles.imageBackground}>
+                                    <ButtonBack />
+                                </View>
+                            }
+                            <View style={styles.infoCard}>
+                                <Text style={styles.name}>{this.props.item.itemDetail.name}</Text>
+                                <ScrollView showsVerticalScrollIndicator={false}>
+                                    <View style={styles.infoWrapper}>
+                                        <View style={styles.ratingWrapper}>
+                                            <Icon name="ios-star" size={30} style={styles.star} />
+                                            <Text style={styles.starCount}>{this.props.item.itemDetail.rating}</Text>
+                                        </View>
+                                        {
+                                            this.props.item.itemDetail.price !== null &&
+                                            <Text style={styles.price}>{formatRupiah(this.props.item.itemDetail.price, 'Rp.')}</Text>
+                                        }
                                     </View>
-                                    {
-                                        this.props.item.itemDetail.price !== null &&
-                                        <Text style={styles.price}>{formatRupiah(this.props.item.itemDetail.price, 'Rp.')}</Text>
-                                    }
-                                </View>
-                                <Text style={styles.description}>{this.props.item.itemDetail.description}</Text>
-                                <View style={styles.categoryWrapper}>
-                                    {this.props.item.itemDetail.categories.map((v, i) => (
-                                        <TouchableOpacity style={styles.categories} key={i} onPress={() => this.props.navigation.navigate('Search', { search: [{ name: "category", value: v.id }] })}>
-                                            <Text style={styles.categoryText}>{v.name}</Text>
-                                        </TouchableOpacity>
-                                    ))}
-                                </View>
-                                <Text style={{ fontFamily: 'Nunito-Regular', marginTop: 10 }}>Suggested Menu</Text>
-                                <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-                                    {this.props.item.itemDetail.suggests.map((v, i) => {
-                                        console.log(v);
-                                        return (
-                                            <TouchableOpacity style={{ backgroundColor: '#fff', width: 100, height: 120, borderRadius: 12, margin: 10, elevation: 5, marginLeft: 20 }} key={i} onPress={() => this.props.navigation.replace('ItemDetail', { itemId: v.id })}>
-                                                <View style={{ flex: 1, flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
-                                                    {
-                                                        v.images.length !== 0
-                                                            ? <Image source={{ uri: APP_URL.concat(`/images/${v.images[0].filename}`) }} style={{ backgroundColor: '#eee', width: 50, height: 50 }} resizeMode="cover" />
-                                                            : <Image source={{ uri: `asset:/icons/favicon.png` }} style={{ width: 50, height: 50 }} resizeMode="cover" />
-                                                    }
-                                                    <Text style={{ fontFamily: 'Nunito-Regular', fontSize: 12, textAlign: 'center' }}>{v.name}</Text>
-                                                </View>
+                                    <Text style={styles.description}>{this.props.item.itemDetail.description}</Text>
+                                    <View style={styles.categoryWrapper}>
+                                        {this.props.item.itemDetail.categories.map((v, i) => (
+                                            <TouchableOpacity style={styles.categories} key={i} onPress={() => this.props.navigation.navigate('Search', { search: [{ name: "category", value: v.id }] })}>
+                                                <Text style={styles.categoryText}>{v.name}</Text>
                                             </TouchableOpacity>
-                                        )
-                                    })}
-                                </ScrollView>
-                                <Text style={{ fontFamily: 'Nunito-Regular', marginTop: 10 }}>Review</Text>
-                                {
-                                    this.props.item.itemDetail.reviews.map((v, i) => {
-                                        return (
-                                            <View style={{ backgroundColor: 'white', padding: 10, margin: 10, elevation: 3, borderRadius: 12 }} key={i}>
-                                                <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'space-between' }}>
-                                                    <View style={{ flex: 1 }}>
-                                                        <Text style={{ fontSize: 16, fontFamily: 'Nunito-Regular' }}>{v.user.length !== 0 ? v.user[0].name : 'Anonimous'}</Text>
+                                        ))}
+                                    </View>
+                                    <Text style={{ fontFamily: 'Nunito-Regular', marginTop: 10 }}>Suggested Menu</Text>
+                                    <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+                                        {this.props.item.itemDetail.suggests.map((v, i) => {
+                                            console.log(v);
+                                            return (
+                                                <TouchableOpacity style={{ backgroundColor: '#fff', width: 100, height: 120, borderRadius: 12, margin: 10, elevation: 5, marginLeft: 20 }} key={i} onPress={() => this.props.navigation.replace('ItemDetail', { itemId: v.id })}>
+                                                    <View style={{ flex: 1, flexDirection: 'column', justifyContent: 'space-between', alignItems: 'center', paddingBottom: 20 }}>
+                                                        {
+                                                            v.images.length !== 0
+                                                                ? <Image source={{ uri: APP_IMAGE_URL.concat(v.images[0].filename) }} style={{ backgroundColor: '#eee', width: '100%', height: '100%', borderRadius: 12, }} resizeMode="cover" />
+                                                                : <Image source={{ uri: `asset:/icons/favicon.png` }} style={{ width: 50, height: 50 }} resizeMode="cover" />
+                                                        }
+                                                        <Text style={{ fontFamily: 'Nunito-Regular', fontSize: 12, textAlign: 'center' }}>{v.name}</Text>
                                                     </View>
-                                                    <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'flex-end' }}>
-                                                        <Icon name="ios-star" size={20} style={styles.star} />
-                                                        <Text style={styles.starCount, { fontSize: 16 }}>{v.rating}</Text>
+                                                </TouchableOpacity>
+                                            )
+                                        })}
+                                    </ScrollView>
+                                    <Text style={{ fontFamily: 'Nunito-Regular', marginTop: 10 }}>Review</Text>
+                                    {
+                                        this.props.item.itemDetail.reviews.map((v, i) => {
+                                            return (
+                                                <View style={{ backgroundColor: 'white', padding: 10, margin: 10, elevation: 3, borderRadius: 12 }} key={i}>
+                                                    <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'space-between' }}>
+                                                        <View style={{ flex: 1 }}>
+                                                            <Text style={{ fontSize: 16, fontFamily: 'Nunito-Regular' }}>{v.user.length !== 0 ? v.user[0].name : 'Anonimous'}</Text>
+                                                        </View>
+                                                        <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'flex-end' }}>
+                                                            <Icon name="ios-star" size={20} style={styles.star} />
+                                                            <Text style={styles.starCount, { fontSize: 16 }}>{v.rating}</Text>
+                                                        </View>
                                                     </View>
+                                                    <Text style={{ margin: 5, fontSize: 12, fontFamily: 'Nunito-Regular' }}>{v.review}</Text>
                                                 </View>
-                                                <Text style={{ margin: 5, fontSize: 12, fontFamily: 'Nunito-Regular' }}>{v.review}</Text>
-                                            </View>
-                                        )
-                                    })
-                                }
-                            </ScrollView>
-                            <Button rounded dark style={styles.button} onPress={() => this.setState({ modalVisible: true })}>
-                                <Text style={styles.buttonText}>Add to cart</Text>
-                            </Button>
-                        </View>
-                    </>
+                                            )
+                                        })
+                                    }
+                                </ScrollView>
+                                <Button rounded dark style={styles.button} onPress={() => this.setState({ modalVisible: true })}>
+                                    <Text style={styles.buttonText}>Add to cart</Text>
+                                </Button>
+                            </View>
+                        </>
                 }
             </View>
         );

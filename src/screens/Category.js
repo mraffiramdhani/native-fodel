@@ -1,6 +1,6 @@
 //import liraries
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, Image, TouchableOpacity, ScrollView } from 'react-native';
 import SliderTitle from '../components/SliderTitle';
 import { connect } from 'react-redux';
 import { getCategories } from '../redux/actions/category';
@@ -25,17 +25,19 @@ class CategoryOriginal extends Component {
                 <View style={styles.headerWrapper}>
                     <SliderTitle title="Categories" />
                 </View>
-                <View style={styles.contentWrapper}>
-                    {!this.state.isLoading && this.props.category.data.categories.map((v, i) => {
-                        var image = APP_ICON_URL.concat(v.icon)
-                        return (
-                            <TouchableOpacity style={styles.categoryCard} key={i} onPress={() => this.props.navigation.navigate('Search', { search: [{ name: "category", value: v.id }] })}>
-                                <Image source={{ uri: image }} style={{ width: 40, height: 40 }} />
-                                <Text style={{ marginTop: 5, fontFamily: 'Nunito-Regular', fontSize: 14, textAlign: 'center' }}>{v.name}</Text>
-                            </TouchableOpacity>
-                        )
-                    })}
-                </View>
+                <ScrollView showsVerticalScrollIndicator={false}>
+                    <View style={styles.contentWrapper}>
+                        {!this.state.isLoading && this.props.category.data.categories.map((v, i) => {
+                            var image = APP_ICON_URL.concat(v.icon)
+                            return (
+                                <TouchableOpacity style={styles.categoryCard} key={i} onPress={() => this.props.navigation.navigate('Search', { search: [{ name: "category", value: v.id }] })}>
+                                    <Image source={{ uri: image }} style={{ width: 40, height: 40 }} />
+                                    <Text style={{ marginTop: 5, fontFamily: 'Nunito-Regular', fontSize: 14, textAlign: 'center' }}>{v.name}</Text>
+                                </TouchableOpacity>
+                            )
+                        })}
+                    </View>
+                </ScrollView>
             </View>
         );
     }

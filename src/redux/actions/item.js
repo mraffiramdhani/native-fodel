@@ -1,4 +1,4 @@
-import { APP_URL, Get } from '../../config/config';
+import { APP_URL, Get, Post } from '../../config/config';
 
 export const getPopularItems = (jwt) => {
     return {
@@ -18,5 +18,12 @@ export const getItem = (jwt, id) => {
     return {
         type: 'GET_ITEM',
         payload: Get(APP_URL.concat('/item/' + id), jwt)
+    }
+}
+
+export const getLastOrdered = (jwt, ids) => {
+    return {
+        type: 'GET_LAST_ORDERED',
+        payload: Post(APP_URL.concat('/order/item'), jwt, {ids})
     }
 }

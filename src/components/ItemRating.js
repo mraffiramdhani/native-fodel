@@ -17,11 +17,10 @@ class ItemRating extends Component {
         })
     }
     render() {
-        var image = `asset:/images/${this.props.image}`
         return (
             <View style={styles.menuWrapper}>
                 <View>
-                    <Image source={{ uri: image }} style={styles.image} resizeMode="cover" />
+                    <Image source={{ uri: this.props.image }} style={styles.image} resizeMode="cover" />
                 </View>
                 <View style={styles.menuInfo}>
                     <Text style={styles.menuTitle}>{this.props.name}</Text>

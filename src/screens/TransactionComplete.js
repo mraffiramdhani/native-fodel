@@ -2,6 +2,9 @@
 import React, { Component } from 'react';
 import { View, Text, StyleSheet, ScrollView, Image, TouchableOpacity } from 'react-native';
 import { StackActions, NavigationActions, withNavigation } from 'react-navigation';
+import { connect } from 'react-redux';
+import { getLastOrdered } from '../redux/actions/item';
+import { APP_IMAGE_URL } from '../config/config';
 import ItemRating from '../components/ItemRating';
 
 const resetAction = StackActions.reset({
@@ -11,7 +14,18 @@ const resetAction = StackActions.reset({
 
 // create a component
 class TransactionCompleteOriginal extends Component {
+    constructor(props) {
+      super(props);
+    }
+
+    async componentDidMount(){
+        const jwt = this.props.auth.data.token;
+        const ids = this.props.navigation.getParam('ids');
+        await this.props.dispatch(getLastOrdered(jwt, ids));
+    }
+
     render() {
+        console.log(APP_IMAGE_URL);
         return (
             <View style={styles.container}>
                 <View style={styles.headerWrapper}>
@@ -26,9 +40,13 @@ class TransactionCompleteOriginal extends Component {
                         <Text style={styles.title}>Transaction Success</Text>
                         <Text style={styles.subtitle}>Give rating to item(s) you ordered.</Text>
                     </View>
-                    <ItemRating image="drink.jpg" name="Kopi Teman Sejiwa" restaurant="Teman Sejiwa" rating={1} />
-                    <ItemRating image="pizza.jpg" name="Cheese Bomb" restaurant="Pizza Hut" rating={1} />
-                    <ItemRating image="salad.jpg" name="Salad Buah" restaurant="Salad Enak" rating={1} />
+                    {
+                        this.props.item.data.items.map((v, i) => {
+                            return (
+                                <ItemRating key={i} image={APP_IMAGE_URL.concat(v.images[0].filename)} name={v.name} rating={1} />
+                            )
+                        })
+                    }
                 </ScrollView>
                 <View>
                     <TouchableOpacity style={{ backgroundColor: '#111', padding: 20, borderRadius: 30, margin: 10, alignItems: 'center' }} onPress={() => this.props.navigation.dispatch(resetAction)}>
@@ -120,5 +138,12 @@ const styles = StyleSheet.create({
 
 const TransactionComplete = withNavigation(TransactionCompleteOriginal)
 
+const mapStateToProps = state => {
+    return {
+        item: state.item,
+        auth: state.auth
+    }
+}
+
 //make this component available to the app
-export default TransactionComplete;
+export default connect(mapStateToProps)(TransactionComplete);

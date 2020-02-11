@@ -1,6 +1,6 @@
 //import liraries
 import React, { Component } from 'react';
-import { View, StyleSheet, ScrollView, Text, Image, TouchableOpacity } from 'react-native';
+import { View, StyleSheet, ScrollView, Text, Image, TouchableOpacity, ActivityIndicator } from 'react-native';
 import { Input, Container } from 'native-base';
 import { withNavigation } from 'react-navigation';
 import { connect } from 'react-redux';
@@ -17,7 +17,7 @@ class SearchOriginal extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            searchDidMount: '',
+            searchParam: '',
             searchValue: '',
             isLoading: true,
             isSuccess: false,
@@ -25,24 +25,24 @@ class SearchOriginal extends Component {
     }
 
     async componentDidMount() {
-        const searchParam = this.props.navigation.getParam('search')
-        const sortParam = this.props.navigation.getParam('sort')
+        const search = this.props.navigation.getParam('search')
+        const sort = this.props.navigation.getParam('sort')
         const jwt = this.props.auth.data.token;
         var arr_params = []
         var params = ""
-        if (searchParam) {
-            searchParam.map((v, i) => {
+        if (search) {
+            search.map((v, i) => {
                 arr_params.push(`search[${v.name}]=${v.value}`)
             })
         }
-        if (sortParam) {
-            sortParam.map((v, i) => {
+        if (sort) {
+            sort.map((v, i) => {
                 arr_params.push(`sort[${v.name}]=${v.value}`)
             })
         }
         params = arr_params.join('&')
         await this.props.dispatch(getItems(jwt, params))
-        await this.setState({ isLoading: false, searchDidMount: params })
+        await this.setState({ isLoading: false, searchParam: params })
     }
 
     async componentDidUpdate(prevProps, prevState) {
@@ -50,11 +50,11 @@ class SearchOriginal extends Component {
         if (prevState.searchValue !== this.state.searchValue) {
             if (this.state.searchValue.length >= 3) {
                 await this.setState({ isLoading: true })
-                await this.props.dispatch(getItems(jwt, this.state.searchDidMount + `&search[name]=${this.state.searchValue}`))
+                await this.props.dispatch(getItems(jwt, this.state.searchParam + `&search[name]=${this.state.searchValue}`))
                 await this.setState({ isLoading: false })
             } else if (this.state.searchValue.length === 0) {
                 await this.setState({ isLoading: true })
-                await this.props.dispatch(getItems(jwt, this.state.searchDidMount))
+                await this.props.dispatch(getItems(jwt, this.state.searchParam))
                 await this.setState({ isLoading: false })
             }
         }
@@ -70,34 +70,39 @@ class SearchOriginal extends Component {
                         <Input style={styles.searchInput} placeholder="Feelin' hungry today?" value={this.state.searchValue} onChange={(e) => this.setState({ searchValue: e.nativeEvent.text })} />
                     </View>
                 </View>
-                <ScrollView showsVerticalScrollIndicator={false}>
-
-                    {!this.state.isLoading && this.props.item.data.items.map((v, i) => {
-                        var img = <View style={[styles.image, { backgroundColor: '#bbb' }]}><Text>No Image</Text></View>
-                        if (v.images.length !== 0) {
-                            if (v.images[0].filename.substr(0, 4) === 'http') {
-                                img = <Image source={{ uri: v.images.filename }} style={styles.image} resizeMode="cover" />
-                            } else {
-                                img = <Image source={{ uri: APP_IMAGE_URL.concat(v.images[0].filename) }} style={styles.image} resizeMode="cover" />
-                            }
-                        }
-                        return (
-                            <TouchableOpacity style={styles.itemWrapper} key={i} onPress={() => this.props.navigation.navigate('ItemDetail', { itemId: v.id })}>
-                                <View>
-                                    {img}
-                                </View>
-                                <View style={styles.itemInfo}>
-                                    <Text style={styles.itemName}>{v.name}</Text>
-                                    <Text style={styles.itemRestaurant}>{v.restaurant}</Text>
-                                    <View style={styles.info}>
-                                        <Text style={styles.startCount}><IonIcon name="ios-star" style={styles.star} size={18} /> {v.rating}</Text>
-                                        <Text style={styles.price}>{formatRupiah(v.price, 'Rp.')}</Text>
-                                    </View>
-                                </View>
-                            </TouchableOpacity>
-                        )
-                    })}
-                </ScrollView>
+                {
+                    this.state.isLoading
+                    ?   <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+                            <ActivityIndicator size="large" color="black" />
+                        </View>
+                    :   <ScrollView showsVerticalScrollIndicator={false}>
+                            {!this.state.isLoading && this.props.item.data.items.map((v, i) => {
+                                var img = <View style={[styles.image, { backgroundColor: '#bbb' }]}><Text>No Image</Text></View>
+                                if (v.images.length !== 0) {
+                                    if (v.images[0].filename.substr(0, 4) === 'http') {
+                                        img = <Image source={{ uri: v.images.filename }} style={styles.image} resizeMode="cover" />
+                                    } else {
+                                        img = <Image source={{ uri: APP_IMAGE_URL.concat(v.images[0].filename) }} style={styles.image} resizeMode="cover" />
+                                    }
+                                }
+                                return (
+                                    <TouchableOpacity style={styles.itemWrapper} key={i} onPress={() => this.props.navigation.navigate('ItemDetail', { itemId: v.id })}>
+                                        <View>
+                                            {img}
+                                        </View>
+                                        <View style={styles.itemInfo}>
+                                            <Text style={styles.itemName}>{v.name}</Text>
+                                            <Text style={styles.itemRestaurant}>{v.restaurant}</Text>
+                                            <View style={styles.info}>
+                                                <Text style={styles.startCount}><IonIcon name="ios-star" style={styles.star} size={18} /> {v.rating}</Text>
+                                                <Text style={styles.price}>{formatRupiah(v.price, 'Rp.')}</Text>
+                                            </View>
+                                        </View>
+                                    </TouchableOpacity>
+                                )
+                            })}
+                        </ScrollView>
+                }
             </Container>
         );
     }

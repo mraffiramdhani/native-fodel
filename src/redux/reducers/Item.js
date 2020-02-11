@@ -83,6 +83,30 @@ const item = (state = initialState, action) => {
                 isError: false,
                 isSuccess: action.payload.data.success,
             }
+
+        case 'GET_LAST_ORDERED_PENDING':
+            return {
+                ...state,
+                isLoading: true,
+                isError: false,
+                isSuccess: false,
+            }
+        case 'GET_LAST_ORDERED_REJECTED':
+            return {
+                ...state,
+                isLoading: false,
+                isError: true,
+                isSuccess: false,
+            }
+        case 'GET_LAST_ORDERED_FULFILLED':
+            return {
+                ...state,
+                data: action.payload.data.data,
+                isLoading: false,
+                isError: false,
+                isSuccess: action.payload.data.success,
+            }
+
         default:
             return state
     }
