@@ -38,6 +38,6 @@ export const getProfile = (jwt) => {
 export const patchUser = (jwt, data) => {
     return {
         type: 'PATCH_USER',
-        payload: Patch(APP_URL.concat('/user'), jwt, data)
+        payload: Patch(APP_URL.concat('/password/reset'), jwt, data)
     }
 }

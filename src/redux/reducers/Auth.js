@@ -121,14 +121,17 @@ const auth = (state = initialState, action) => {
                 isSuccess: false,
             }
         case 'PATCH_USER_FULFILLED':
-            state.data.name = action.payload.data.data.name
-            state.data.username = action.payload.data.data.username
-            return {
+            const res = {
                 ...state,
                 isLoading: false,
                 isError: false,
                 isSuccess: action.payload.data.success,
             }
+            res.data.name = action.payload.data.data.name;
+            res.data.username = action.payload.data.data.username;
+            res.data.email = action.payload.data.data.email;
+            res.data.token = action.payload.data.data.token;
+            return res
         default:
             return state
     }

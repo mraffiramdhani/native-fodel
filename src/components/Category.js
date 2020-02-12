@@ -1,7 +1,7 @@
 //import liraries
 import React, { Component } from 'react';
 import { View, Text, StyleSheet, ScrollView, Image, TouchableOpacity } from 'react-native';
-import {withNavigation} from 'react-navigation';
+import { withNavigationFocus } from 'react-navigation';
 import { connect } from 'react-redux';
 import { getCategories } from '../redux/actions/category';
 import { APP_ICON_URL } from '../config/config';
@@ -17,7 +17,12 @@ class CategoryOriginal extends Component {
 
     async componentDidMount() {
         await this.props.dispatch(getCategories());
-        await this.setState({ isLoading: false })
+        await this.setState({ isLoading: false });
+        this.props.navigation.addListener('didFocus', () => this.onFocus(this.props));
+    }
+
+    async onFocus(props) {
+        props.dispatch(getCategories());
     }
 
     render() {
@@ -28,7 +33,7 @@ class CategoryOriginal extends Component {
                     showsHorizontalScrollIndicator={false}
                 >
                     {this.state.isLoading &&
-                        <>
+                        <View style={{flexDirection: 'row'}}>
                             <View style={[styles.card, { marginLeft: 20 }]}>
                                 <View style={styles.cardWrapper}>
                                     <View style={{ backgroundColor: '#eee', width: 50, height: 50 }}></View>
@@ -47,7 +52,7 @@ class CategoryOriginal extends Component {
                                     <View style={{ backgroundColor: '#eee', height: 10, width: 50, marginTop: 5 }}></View>
                                 </View>
                             </View>
-                        </>
+                        </View>
                     }
                     {!this.state.isLoading && this.props.category.data.categories.map((v, i) => {
                         var styler = [styles.card]
@@ -90,7 +95,7 @@ const mapStateToProps = state => {
     }
 }
 
-const Category = withNavigation(CategoryOriginal)
+const Category = withNavigationFocus(CategoryOriginal)
 
 //make this component available to the app
 export default connect(mapStateToProps)(Category);

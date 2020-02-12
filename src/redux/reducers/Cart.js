@@ -1,6 +1,7 @@
 const initialState = {
     count: 0,
     data: [],
+    cartDetail: {},
     isLoading: false,
     isError: false,
     isSuccess: true,

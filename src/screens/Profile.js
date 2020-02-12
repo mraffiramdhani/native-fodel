@@ -7,7 +7,7 @@ import RNFetchBlob from 'rn-fetch-blob';
 import { View, Text, StyleSheet, Image, ScrollView, TouchableOpacity, Alert, PermissionsAndroid, ToastAndroid, ActivityIndicator } from 'react-native';
 import { connect } from 'react-redux';
 import { logout, changePhoto } from '../redux/actions/auth';
-import { withNavigation } from 'react-navigation';
+import { withNavigationFocus } from 'react-navigation';
 import { APP_IMAGE_URL, APP_URL } from '../config/config';
 
 // create a component
@@ -36,7 +36,7 @@ class ProfileOriginal extends Component {
     }
 
     async componentDidUpdate(prevProps) {
-        if (prevProps.auth.isLoading !== this.state.isLoading) {
+        if (prevProps.auth.isLoading !== this.state.isLoading && this.props.navigation.isFocused()) {
             if (prevProps.auth.isLoading === true) {
                 this.setState({
                     isLoading: true
@@ -210,7 +210,7 @@ const styles = StyleSheet.create({
     },
 });
 
-const Profile = withNavigation(ProfileOriginal);
+const Profile = withNavigationFocus(ProfileOriginal);
 
 const mapStateToProps = state => {
     return {
