@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import { View, Text, StyleSheet, ScrollView, Image, TouchableOpacity } from 'react-native';
 import { StackActions, NavigationActions, withNavigation } from 'react-navigation';
 import { connect } from 'react-redux';
-import { getLastOrdered } from '../redux/actions/item';
+import { getLastOrdered, postReview } from '../redux/actions/item';
 import { APP_IMAGE_URL } from '../config/config';
 import ItemRating from '../components/ItemRating';
 
@@ -16,6 +16,9 @@ const resetAction = StackActions.reset({
 class TransactionCompleteOriginal extends Component {
     constructor(props) {
       super(props);
+      this.state = {
+        reviews: [],
+      }
     }
 
     async componentDidMount(){
@@ -24,8 +27,56 @@ class TransactionCompleteOriginal extends Component {
         await this.props.dispatch(getLastOrdered(jwt, ids));
     }
 
+    async handleReview(order, data){
+        let reviews = this.state.reviews;
+        if (reviews.length === 0 && data !== null) {
+            await this.setState(prevState => {
+                return {
+                    reviews: [...prevState.reviews, data],
+                };
+            });
+        }
+        else if (reviews.length !== 0) {
+            const mapOfID = reviews.map(v => { return v.item_id });
+            if (mapOfID.find(id => id === data.item_id)) {
+                let arr = [...this.state.reviews];
+                arr[order] = data;
+                await this.setState({reviews: arr});
+            }
+            else {
+                await this.setState(prevState => {
+                    return {
+                        reviews: [...prevState.reviews, data],
+                    };
+                });
+            }
+        }
+    }
+
+    async handleReviewSubmit(){
+        if(this.state.reviews.length === 0 ){
+            let arr = [];
+            this.props.item.data.items.map((v) => {
+                arr.push({
+                    item_id: v.id,
+                    rating: 1,
+                    review: '',
+                });
+            });
+            await this.setState({reviews: arr});
+        }
+
+        const data = {
+            reviews: this.state.reviews,
+        }
+        const jwt = this.props.auth.data.token;
+        if(jwt !== null){
+            this.props.dispatch(postReview(jwt, data));
+            this.props.navigation.dispatch(resetAction);
+        }
+    }
+
     render() {
-        console.log(APP_IMAGE_URL);
         return (
             <View style={styles.container}>
                 <View style={styles.headerWrapper}>
@@ -43,13 +94,21 @@ class TransactionCompleteOriginal extends Component {
                     {
                         this.props.item.data.items.map((v, i) => {
                             return (
-                                <ItemRating key={i} image={APP_IMAGE_URL.concat(v.images[0].filename)} name={v.name} rating={1} />
+                                <ItemRating 
+                                    key={i}
+                                    order={i}
+                                    item={v}
+                                    image={APP_IMAGE_URL.concat(v.images[0].filename)}
+                                    name={v.name}
+                                    rating={1}
+                                    onReviewed={(order, data) => this.handleReview(order, data)}
+                                />
                             )
                         })
                     }
                 </ScrollView>
                 <View>
-                    <TouchableOpacity style={{ backgroundColor: '#111', padding: 20, borderRadius: 30, margin: 10, alignItems: 'center' }} onPress={() => this.props.navigation.dispatch(resetAction)}>
+                    <TouchableOpacity style={{ backgroundColor: '#111', padding: 20, borderRadius: 30, margin: 10, alignItems: 'center' }} onPress={() => this.handleReviewSubmit()}>
                         <Text style={{ color: 'white', textTransform: 'uppercase' }}>Confirm</Text>
                     </TouchableOpacity>
                 </View>

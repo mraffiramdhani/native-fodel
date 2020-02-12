@@ -107,6 +107,28 @@ const item = (state = initialState, action) => {
                 isSuccess: action.payload.data.success,
             }
 
+        case 'POST_REVIEW_PENDING':
+            return {
+                ...state,
+                isLoading: true,
+                isError: false,
+                isSuccess: false,
+            }
+        case 'POST_REVIEW_REJECTED':
+            return {
+                ...state,
+                isLoading: false,
+                isError: true,
+                isSuccess: false,
+            }
+        case 'POST_REVIEW_FULFILLED':
+            return {
+                ...state,
+                isLoading: false,
+                isError: false,
+                isSuccess: action.payload.data.success,
+            }
+
         default:
             return state
     }

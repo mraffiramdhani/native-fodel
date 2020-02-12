@@ -1,6 +1,6 @@
 //import liraries
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, Image } from 'react-native';
+import { View, Text, StyleSheet, Image, TextInput } from 'react-native';
 import StarRating from 'react-native-star-rating';
 
 // create a component
@@ -9,12 +9,28 @@ class ItemRating extends Component {
         super(props)
         this.state = {
             starCount: this.props.rating,
+            review: '',
         }
     }
-    handleStarCountChange(starCount) {
-        this.setState({
+    async handleStarCountChange(starCount) {
+        await this.setState({
             starCount
-        })
+        });
+        const data = {
+            item_id: this.props.item.id,
+            rating: this.state.starCount,
+            review: this.state.review,
+        }
+        this.props.onReviewed(this.props.order, data);
+    }
+    async handleReviewChange(e) {
+        await this.setState({review: e});
+        const data = {
+            item_id: this.props.item.id,
+            rating: this.state.starCount,
+            review: this.state.review,
+        }
+        this.props.onReviewed(this.props.order, data);   
     }
     render() {
         return (
@@ -24,7 +40,6 @@ class ItemRating extends Component {
                 </View>
                 <View style={styles.menuInfo}>
                     <Text style={styles.menuTitle}>{this.props.name}</Text>
-                    <Text style={styles.restaurant}>{this.props.restaurant}</Text>
                 </View>
                 <View>
                     <StarRating
@@ -35,6 +50,7 @@ class ItemRating extends Component {
                         fullStarColor={'#e3bd00'}
                         selectedStar={(rating) => this.handleStarCountChange(rating)}
                     />
+                    <TextInput value={this.state.review} onChange={e => this.handleReviewChange(e.nativeEvent.text)} placeholder="type your review" style={{borderBottomColor: 'black', borderBottomWidth: 1}} />
                 </View>
             </View>
         );
@@ -61,11 +77,6 @@ const styles = StyleSheet.create({
     menuTitle: {
         fontFamily: 'Nunito-Regular',
         fontSize: 20,
-    },
-    restaurant: {
-        fontFamily: 'Nunito-Regular',
-        color: '#444',
-        fontSize: 12
     },
 });
 

@@ -27,3 +27,10 @@ export const getLastOrdered = (jwt, ids) => {
         payload: Post(APP_URL.concat('/order/item'), jwt, {ids})
     }
 }
+
+export const postReview = (jwt, data) => {
+    return {
+        type: 'POST_REVIEW',
+        payload: Post(APP_URL.concat('/review'), jwt, data)
+    }
+}
