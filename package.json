@@ -15,7 +15,7 @@
     "@react-native-community/netinfo": "^5.3.3",
     "axios": "^0.19.1",
     "native-base": "^2.13.8",
-    "qs": "^6.9.1",
+    "qs": "^6.9.7",
     "react": "16.9.0",
     "react-native": "0.61.5",
     "react-native-counters": "^0.0.1",
